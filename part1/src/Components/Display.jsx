@@ -1,7 +1,10 @@
 import React from 'react'
 
-export const Display = ({text}) => {
+export const Display = ({text, value}) => {
   return (
-      <p>{text}</p>
+    <div>
+            <p>{text}</p>
+            <p>Votes: {value}</p>
+    </div>
   );
 }
