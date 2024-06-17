@@ -31,7 +31,7 @@ const Statistics = ({good,neutral,bad,all,average,percentage})=>{
   }else{
     return(
       <table>
-        <tbody>
+        <tbody> 
           <StatisticLine text='Good' value={good} />
           <StatisticLine text='Neutral' value={neutral} />
           <StatisticLine text='Bad' value={bad} />
