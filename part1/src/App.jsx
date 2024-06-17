@@ -20,6 +20,20 @@ const Display = ({ text, value }) => {
   );
 }
 
+const Statistics = ({good,neutral,bad,all,average,percentage})=>{
+  return(
+    <div>
+      <Title text='Statistics'/>
+      <Display text='Good' value={good} />
+      <Display text='Neutral' value={neutral} />
+      <Display text='Bad' value={bad} />
+      <Display text='All' value={all} />
+      <Display text='Average' value={average} />
+      <Display text='Positive' value={`${percentage} %`} />
+    </div>
+  )
+}
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -50,13 +64,7 @@ const App = () => {
       <Button onClick={addGood} text='Good' />
       <Button onClick={addNeutral} text='Neutral' />
       <Button onClick={addBad} text='Bad' />
-      <Title text='Statistics' />
-      <Display text='Good' value={good} />
-      <Display text='Neutral' value={neutral} />
-      <Display text='Bad' value={bad} />
-      <Display text='All' value={all} />
-      <Display text='Average' value={average} />
-      <Display text='Positive' value={`${positivePercentage} %`} />
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} percentage={positivePercentage} />
     </div>
   );
 }
