@@ -7,7 +7,6 @@ const App = () => {
   const [newName, setNewName] = useState('Name')
 
   const handleValue = (event)=>{
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -16,8 +15,13 @@ const App = () => {
     const contactObjet = {
       name: newName
     }
-    setPersons(persons.concat(contactObjet))
-    setNewName('')
+    if(persons.some(person => person.name === newName)){
+      alert(`${newName} Ya esta registrado`)
+      console.error('El nombre ',newName,' ya esta registrado')
+    }else{
+      setPersons(persons.concat(contactObjet))
+      setNewName('')
+    }
   }
 
   return (
@@ -33,7 +37,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person=> <li>{person.name}</li> )}
+        {persons.map(person=> <li key={person.name} >{person.name}</li> )}
       </ul>
     </div>
   )
