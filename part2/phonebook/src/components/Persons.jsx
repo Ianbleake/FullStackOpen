@@ -1,11 +1,19 @@
+import Button from "./Button"
 import { Title } from "./Title"
 
-const Persons = ({persons, Search})=>{
-  return(
+const Persons = ({ persons, search, deletePerson }) => {
+  return (
     <div>
-      <Title text={'Phone numbers'} />
+      <Title text={'Números de Teléfono'} />
       <ul>
-        {persons.map(person=> person.name.match(Search) ? <li key={person.name} >{person.name}: {person.phone}</li> : '' )}
+        {persons
+          .filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
+          .map(person => (
+            <li key={person.id}>
+              {person.name}: {person.phone} 
+              <Button handle={() => deletePerson(person.id, person.name)} text={'Delete'} />
+            </li>
+          ))}
       </ul>
     </div>
   )

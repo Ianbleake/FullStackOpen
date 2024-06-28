@@ -10,7 +10,7 @@ const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('Name')
   const [newPhone, setNewPhone] = useState('0000000000')
-  const [Search, setSearch] = useState('')
+  const [search, setSearch] = useState('')
 
   const handleName = (event)=>{
     setNewName(event.target.value)
@@ -38,7 +38,7 @@ const App = () => {
 
   const addContact = (event)=>{
     event.preventDefault()
-    const contactObjet = {
+    const contactObject = {
       name: newName,
       phone: newPhone
     }
@@ -50,23 +50,36 @@ const App = () => {
         alert(`${newPhone} Ya esta registrado`)
         console.error('El numero: ',newPhone,' ya esta registrado')
       }
-    }else{
+    } else {
       personService
-        .create(contactObjet)
-          .then(returnedPerson => {
-            setPersons(persons.concat(returnedPerson))
-            setNewName('')
-            setNewPhone('')
-          })
+        .create(contactObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewPhone('')
+        })
+    }
+  }
+
+  const deletePerson = (id, name) => {
+    if (window.confirm(`¿Eliminar a ${name}?`)) {
+      personService
+        .erase(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+        .catch(error => {
+          console.error("No se pudo eliminar a la persona: ", error)
+        })
     }
   }
 
   return (
     <div>
-      <Title text={'Phonebook'} />
+      <Title text={'PhoneBook'} />
       <Filter handle={handleSearch} />
       <PersonForm nameAction={handleName} phoneAction={handlePhone} addAction={addContact} nameState={newName} phoneState={newPhone} />
-      <Persons persons={persons} Search={Search}/>
+      <Persons persons={persons} search={search} deletePerson={deletePerson} />
     </div>
   )
 }
