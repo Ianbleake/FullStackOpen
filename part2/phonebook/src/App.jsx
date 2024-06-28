@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import personService from './services/persons'
 import { Title } from './components/Title'
 import Filter from './components/Filter'
@@ -8,47 +7,51 @@ import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
-  const [newName, setNewName] = useState('Name')
-  const [newPhone, setNewPhone] = useState('0000000000')
+  const [newName, setNewName] = useState('')
+  const [newPhone, setNewPhone] = useState('')
   const [search, setSearch] = useState('')
 
-  const handleName = (event)=>{
+  const handleName = (event) => {
     setNewName(event.target.value)
   }
 
-  const handlePhone = (event)=>{
+  const handlePhone = (event) => {
     setNewPhone(event.target.value)
   }
 
-  const handleSearch = (event)=> {
+  const handleSearch = (event) => {
     setSearch(event.target.value)
   }
 
   useEffect(() => {
-    console.log('Effect Active')
     personService
       .getAll()
-        .then(initPersons => {
-          console.log('Promise Fullfiled')
-          setPersons(initPersons)
-        })
-  }, []);
+      .then(initPersons => {
+        setPersons(initPersons)
+      })
+  }, [])
 
-  console.log('Render ',persons.length,' Persons')
+  const updateNumber = (id, contactObject) => {
+    personService
+      .update(id, contactObject)
+      .then(returnedPerson => {
+        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+        setNewName('')
+        setNewPhone('')
+      })
+  }
 
-  const addContact = (event)=>{
+  const addContact = (event) => {
     event.preventDefault()
     const contactObject = {
       name: newName,
       phone: newPhone
     }
-    if(persons.some(person => person.name === newName) || persons.some(person => person.phone === newPhone )){
-      if(persons.some(person => person.name === newName)){
-        alert(`${newName} Ya esta registrado`)
-        console.error('El nombre ',newName,' ya esta registrado')
-      }else{
-        alert(`${newPhone} Ya esta registrado`)
-        console.error('El numero: ',newPhone,' ya esta registrado')
+    const existingPerson = persons.find(person => person.name === newName)
+
+    if (existingPerson) {
+      if (window.confirm(`El nombre ${newName} ya está registrado. ¿Desea actualizar el número de teléfono?`)) {
+        updateNumber(existingPerson.id, contactObject)
       }
     } else {
       personService
@@ -76,10 +79,20 @@ const App = () => {
 
   return (
     <div>
-      <Title text={'PhoneBook'} />
+      <Title text={'Agenda Telefónica'} />
       <Filter handle={handleSearch} />
-      <PersonForm nameAction={handleName} phoneAction={handlePhone} addAction={addContact} nameState={newName} phoneState={newPhone} />
-      <Persons persons={persons} search={search} deletePerson={deletePerson} />
+      <PersonForm 
+        nameAction={handleName} 
+        phoneAction={handlePhone} 
+        addAction={addContact} 
+        nameState={newName} 
+        phoneState={newPhone} 
+      />
+      <Persons 
+        persons={persons} 
+        search={search} 
+        deletePerson={deletePerson} 
+      />
     </div>
   )
 }
