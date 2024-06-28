@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import personService from './services/persons'
 import { Title } from './components/Title'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
@@ -10,17 +11,6 @@ const App = () => {
   const [newName, setNewName] = useState('Name')
   const [newPhone, setNewPhone] = useState('0000000000')
   const [Search, setSearch] = useState('')
-
-  useEffect(() => {
-    console.log('Effect Avtive')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('Promise fulfilled');
-        setPersons(response.data)
-        console.log('Render:',persons.length, 'contacts')
-      })
-  }, []); 
 
   const handleName = (event)=>{
     setNewName(event.target.value)
@@ -33,6 +23,18 @@ const App = () => {
   const handleSearch = (event)=> {
     setSearch(event.target.value)
   }
+
+  useEffect(() => {
+    console.log('Effect Active')
+    personService
+      .getAll()
+        .then(initPersons => {
+          console.log('Promise Fullfiled')
+          setPersons(initPersons)
+        })
+  }, []);
+
+  console.log('Render ',persons.length,' Persons')
 
   const addContact = (event)=>{
     event.preventDefault()
@@ -49,9 +51,13 @@ const App = () => {
         console.error('El numero: ',newPhone,' ya esta registrado')
       }
     }else{
-      setPersons(persons.concat(contactObjet))
-      setNewName('')
-      setNewPhone('')
+      personService
+        .create(contactObjet)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+            setNewName('')
+            setNewPhone('')
+          })
     }
   }
 
