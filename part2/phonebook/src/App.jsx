@@ -15,6 +15,7 @@ const App = () => {
   const [message, setMessage] = useState(null)
   const [messageType, setMessageType] = useState('')
   const [question, setQuestion] = useState(null)
+  const [pendingDeletion, setPendingDeletion] = useState(null)
 
   const handleName = (event) => {
     setNewName(event.target.value)
@@ -75,7 +76,7 @@ const App = () => {
           contactObject: contactObject
         })
       }if(!existingPerson && existingNumber) {
-        setMessage(`The number: "${newPhone}" is already registered whit the name: "${existingNumber.name}". Do you want to update the owner of the number?`)
+        setMessage(`The number: "${newPhone}" is already registered with the name: "${existingNumber.name}". Do you want to update the owner of the number?`)
         setMessageType('warning')
         setQuestion({
           person: existingNumber,
@@ -106,22 +107,40 @@ const App = () => {
     setMessage(null)
   }
 
-  const deletePerson = (id, name) => {
-    if (window.confirm(`Do you really want to delete ${name}?`)) {
+  const handleDeleteResponse = (response) => {
+    if (response && pendingDeletion) {
+      const { id, name } = pendingDeletion
       personService
         .erase(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id))
+          setMessage(`${name} deleted successfully`)
+          setMessageType('success')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
         .catch(error => {
           console.error("Unable to delete the person: ", error)
+          setMessage(`Failed to delete ${name}`)
+          setMessageType('error')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
     }
+    setPendingDeletion(null)
+  }
+
+  const deletePerson = (id, name) => {
+    setMessage(`Do you really want to delete ${name}?`)
+    setMessageType('warning')
+    setPendingDeletion({ id, name })
   }
 
   return (
     <div className='maincontainer'>
-      <MessageAlert message={message} type={messageType} onResponse={handleUpdateResponse} />
+      <MessageAlert message={message} type={messageType} onResponse={pendingDeletion ? handleDeleteResponse : handleUpdateResponse} />
       <Title text={'Phonebook'} />
       <Filter handle={handleSearch} />
       <PersonForm nameAction={handleName} phoneAction={handlePhone} addAction={addContact} nameState={newName} phoneState={newPhone} />
