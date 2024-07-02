@@ -2,17 +2,17 @@ import { Title } from "./Title"
 
 const PersonForm = ({nameAction,phoneAction,addAction,nameState,phoneState})=>{
   return(
-    <div>
+    <div id="PersonForm">
       <Title text={'Add a new'} />
-      <form>
+      <form className="personForm" >
         <div>
-          name: <input onChange={nameAction} value={nameState}/>
+          <input className="input_field" placeholder="Name:" onChange={nameAction} value={nameState}/>
         </div>
         <div>
-          Phone: <input onChange={phoneAction} value={phoneState} maxLength='10'/>
+          <input className="input_field" placeholder="Phone:" onChange={phoneAction} value={phoneState} maxLength='10'/>
         </div>
         <div>
-          <button onClick={addAction} type="submit">add</button>
+          <button className="btn" onClick={addAction} type="submit">Add</button>
         </div>
       </form>
     </div>

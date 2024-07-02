@@ -2,7 +2,7 @@ import React from 'react'
 
 const Button = ({handle,text})=>{
   return(
-    <button onClick={handle} >{text}</button>
+    <button className='btn' onClick={handle} >{text}</button>
   )
 }
 

@@ -21,19 +21,9 @@
       "id": "4"
     },
     {
-      "name": "Name",
-      "phone": "1111111111",
-      "id": "9243"
-    },
-    {
-      "id": "2735",
-      "name": "name",
-      "phone": "1234567890"
-    },
-    {
-      "id": "11fd",
-      "name": "Ian Bleake",
-      "phone": "5512182737"
+      "name": "Ivan",
+      "phone": "1234567890",
+      "id": "8bce"
     }
   ],
   "notes": [
@@ -55,7 +45,7 @@
     {
       "id": "4bd6",
       "content": "Nueva nota",
-      "important": false
+      "important": true
     },
     {
       "id": "1973",
