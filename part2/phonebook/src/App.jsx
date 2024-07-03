@@ -37,7 +37,7 @@ const App = () => {
       })
   }, [])
 
-  const updateNumber = (id, contactObject) => {
+  const updatePerson = (id, contactObject) => {
     personService
       .update(id, contactObject)
       .then(returnedPerson => {
@@ -49,6 +49,18 @@ const App = () => {
         setTimeout(() => {
           setMessage(null)
         }, 5000)
+      })
+      .catch(error => {
+        console.log('Unable to update the person: ',error.response.status)
+        if(error.response.status == '404'){
+          setMessage(`${contactObject.name} has already been deleted from server.`)
+        }else{
+          setMessage(`Failed to Update ${contactObject.name}: Error: ${error.response.status}`)
+        }
+        setMessageType('error')
+        setTimeout(()=>{
+          setMessage(null)
+        },5000)
       })
   }
 
@@ -101,7 +113,7 @@ const App = () => {
 
   const handleUpdateResponse = (response) => {
     if (response && question) {
-      updateNumber(question.person.id, question.contactObject)
+      updatePerson(question.person.id, question.contactObject)
     }
     setQuestion(null)
     setMessage(null)
@@ -121,8 +133,8 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
-          console.error("Unable to delete the person: ", error)
-          setMessage(`Failed to delete ${name}`)
+          console.error("Unable to delete the person: ", error.response.status)
+          setMessage(`Failed to delete ${name}, error: ${error.response.status}`)
           setMessageType('error')
           setTimeout(() => {
             setMessage(null)
