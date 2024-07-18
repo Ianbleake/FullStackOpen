@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Note from './components/Note'
-import Notification from './components/Notification'
 import noteService from './services/notes'
+import { Title } from './components/Title'
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -60,15 +60,16 @@ const App = () => {
     : notes.filter(note => note.important)
 
   return (
-    <div>
-      <h1>Notes</h1>
-      <Notification message={errorMessage} />
+    <div className='bdy'>
+      <Title text={'Notes'} />
+      
+      
       <div>
-        <button onClick={() => setShowAll(!showAll)}>
+        <button className='btn' onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
       </div>      
-      <ul>
+      <ul className='tab'>
         {notesToShow.map(note => 
           <Note
             key={note.id}
@@ -77,12 +78,13 @@ const App = () => {
           />
         )}
       </ul>
-      <form onSubmit={addNote}>
+      <form className='frm' onSubmit={addNote}>
       <input
+          className='inpt'
           value={newNote}
           onChange={handleNoteChange}
         />
-        <button type="submit">save</button>
+        <button className='btnin' type="submit">save</button>
       </form> 
     </div>
   )
