@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import Note from './components/Note'
 import noteService from './services/notes'
 import { Title } from './components/Title'
+import MessageAlert from './components/MessageAlert'
 
 const App = () => {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
@@ -41,7 +42,7 @@ const App = () => {
         .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
@@ -55,15 +56,16 @@ const App = () => {
     setNewNote(event.target.value)
   }
 
-  const notesToShow = showAll
-    ? notes
-    : notes.filter(note => note.important)
+  const notesToShow = showAll ? notes : notes.filter(note => note.important)
+
+  if(!notes){
+    return null;
+  }
 
   return (
     <div className='bdy'>
       <Title text={'Notes'} />
-      
-      
+      <MessageAlert message={errorMessage} type={'error'} />
       <div>
         <button className='btn' onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
@@ -71,11 +73,7 @@ const App = () => {
       </div>      
       <ul className='tab'>
         {notesToShow.map(note => 
-          <Note
-            key={note.id}
-            note={note}
-            toggleImportance={() => toggleImportanceOf(note.id)}
-          />
+          <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
         )}
       </ul>
       <form className='frm' onSubmit={addNote}>
