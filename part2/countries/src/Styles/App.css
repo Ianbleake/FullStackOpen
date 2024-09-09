@@ -38,6 +38,9 @@ html{
 .results {
   height: 90%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -172,4 +175,28 @@ img.flag {
 
 span.infoo {
   font-weight: normal;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 400px;
+  min-width: 250px;
+}
+
+button.show {
+  height: 90%;
+  text-align: center;
+  background: transparent;
+}
+
+button.show {
+  height: 80%;
+  text-align: center;
+  border: 1px solid;
+  line-height: 7px;
+  background: aliceblue;
+  cursor: pointer;
 }
