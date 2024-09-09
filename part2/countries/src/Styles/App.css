@@ -200,3 +200,9 @@ button.show {
   background: aliceblue;
   cursor: pointer;
 }
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
