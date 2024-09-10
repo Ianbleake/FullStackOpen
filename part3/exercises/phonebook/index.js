@@ -1,5 +1,8 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+var morgan = require('morgan');
+
+app.use(morgan('tiny'));
 app.use(express.json());
 
 let Persons = [
@@ -34,67 +37,66 @@ const generateId = () => {
 }
 
 const findName = (name) => {
-  const find = Persons.find(person=>person.name === name);
-  if(find){return true}else{false}; 
+  const find = Persons.find(person => person.name === name);
+  return !!find;
 }
 
 //*Consultas
 
-app.get('/',(request,response)=>{
-  response.send('<h1>Hello persons!</h1>')
-})
+app.get('/', (request, response) => {
+  response.send('<h1>Hello persons!</h1>');
+});
 
-app.get('/api/persons',(request,response)=>{
-  response.json(Persons)
-})
+app.get('/api/persons', (request, response) => {
+  response.json(Persons);
+});
 
-app.get('/api/persons/:id',(request,response)=>{
+app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id);
   const person = Persons.find(person => person.id === id);
-  if(person){
+  if (person) {
     response.json(person);
-  }else{
+  } else {
     response.status(404).end();
   }
-})
+});
 
-app.get('/info',(request,response)=>{
+app.get('/info', (request, response) => {
   const dataCount = Persons.length;
   const serverDate = new Date();
   response.send(`<h1>Phonebook has info for ${dataCount} people <br/> ${serverDate} </h1>`);
-})
+});
 
-//*Eliminacion
-app.delete('/api/persons/:id',(request,response)=>{
+//*Eliminación
+app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id);
   Persons = Persons.filter(person => person.id !== id);
   response.status(204).end();
-})
+});
 
-//*Creacion
-
-app.post('/api/persons',(request,response)=>{
+//*Creación
+app.post('/api/persons', (request, response) => {
   const body = request.body;
-  
 
-  if(!body.name){
-    return response.status(400).json({error: 'name missing'});
-  }else if(!body.number){
-    return response.status(400).json({error: "Number missing"});
-  }else if(findName(body.name)){
-    return response.status(400).json({error: "name must be unique"})
+  if (!body.name) {
+    return response.status(400).json({ error: 'name missing' });
+  } else if (!body.number) {
+    return response.status(400).json({ error: 'Number missing' });
+  } else if (findName(body.name)) {
+    return response.status(400).json({ error: 'name must be unique' });
   }
 
   const person = {
     name: body.name,
     number: body.number,
     id: generateId()
-  }
+  };
 
   Persons = Persons.concat(person);
   response.json(person);
-})
-
+});
 
 const PORT = 3001;
-app.listen(PORT,()=>{console.log(`Server running on port: ${PORT}`)});
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});
