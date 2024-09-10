@@ -33,6 +33,11 @@ const generateId = () => {
   return newId;
 }
 
+const findName = (name) => {
+  const find = Persons.find(person=>person.name === name);
+  if(find){return true}else{false}; 
+}
+
 //*Consultas
 
 app.get('/',(request,response)=>{
@@ -40,7 +45,6 @@ app.get('/',(request,response)=>{
 })
 
 app.get('/api/persons',(request,response)=>{
-  console.log("ID:",generateId())
   response.json(Persons)
 })
 
@@ -71,9 +75,14 @@ app.delete('/api/persons/:id',(request,response)=>{
 
 app.post('/api/persons',(request,response)=>{
   const body = request.body;
+  
 
-  if(!body.name || !body.number){
-    return response.status(400).json({error: 'Content missing'})
+  if(!body.name){
+    return response.status(400).json({error: 'name missing'});
+  }else if(!body.number){
+    return response.status(400).json({error: "Number missing"});
+  }else if(findName(body.name)){
+    return response.status(400).json({error: "name must be unique"})
   }
 
   const person = {
