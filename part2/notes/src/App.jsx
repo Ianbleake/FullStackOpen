@@ -1,163 +1,89 @@
-import { useEffect, useState } from 'react'
-import personService from './services/persons'
+import { useState, useEffect } from 'react'
+import Note from './components/Note'
+import noteService from './services/notes'
 import { Title } from './components/Title'
-import Filter from './components/Filter'
-import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
-import Footer from './components/Footer'
 import MessageAlert from './components/MessageAlert'
 
 const App = () => {
-  const [persons, setPersons] = useState([])
-  const [newName, setNewName] = useState('')
-  const [newPhone, setNewPhone] = useState('')
-  const [search, setSearch] = useState('')
-  const [message, setMessage] = useState(null)
-  const [messageType, setMessageType] = useState('')
-  const [question, setQuestion] = useState(null)
-  const [pendingDeletion, setPendingDeletion] = useState(null)
-
-  const handleName = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handlePhone = (event) => {
-    setNewPhone(event.target.value)
-  }
-
-  const handleSearch = (event) => {
-    setSearch(event.target.value)
-  }
+  const [notes, setNotes] = useState(null)
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
-    personService
+    noteService
       .getAll()
-      .then(initPersons => {
-        setPersons(initPersons)
+      .then(initialNotes => {
+        setNotes(initialNotes)
       })
   }, [])
 
-  const updatePerson = (id, contactObject) => {
-    personService
-      .update(id, contactObject)
-      .then(returnedPerson => {
-        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
-        setNewName('')
-        setNewPhone('')
-        setMessage(`${newName} updated successfully`)
-        setMessageType('success')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
-      })
-      .catch(error => {
-        console.log('Unable to update the person: ',error.response.status)
-        if(error.response.status == '404'){
-          setMessage(`${contactObject.name} has already been deleted from server.`)
-        }else{
-          setMessage(`Failed to Update ${contactObject.name}: Error: ${error.response.status}`)
-        }
-        setMessageType('error')
-        setTimeout(()=>{
-          setMessage(null)
-        },5000)
-      })
-  }
-
-  const addContact = (event) => {
+  const addNote = (event) => {
     event.preventDefault()
-    const contactObject = {
-      name: newName,
-      phone: newPhone
+    const noteObject = {
+      content: newNote,
+      important: Math.random() > 0.5,
     }
-    const existingPerson = persons.find(person => person.name === newName)
-    const existingNumber = persons.find(person => person.phone === newPhone)
+  
+    noteService
+      .create(noteObject)
+        .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
+        setNewNote('')
+      })
+  }
 
-    if (existingPerson || existingNumber) {
-      if (existingPerson && existingNumber) {
-        setMessage(`${newName} is already registered with the same phone number`)
-        setMessageType('error')
+  const toggleImportanceOf = id => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
+  
+    noteService
+      .update(id, changedNote)
+        .then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      })
+      .catch(() => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        )
         setTimeout(() => {
-          setMessage(null)
+          setErrorMessage(null)
         }, 5000)
-      } if(existingPerson && !existingNumber) {
-        setMessage(`${newName} is already registered. Do you want to update the phone number?`)
-        setMessageType('warning')
-        setQuestion({
-          person: existingPerson,
-          contactObject: contactObject
-        })
-      }if(!existingPerson && existingNumber) {
-        setMessage(`The number: "${newPhone}" is already registered with the name: "${existingNumber.name}". Do you want to update the owner of the number?`)
-        setMessageType('warning')
-        setQuestion({
-          person: existingNumber,
-          contactObject: contactObject
-        })
-      }
-    } else {
-      personService
-        .create(contactObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-          setNewName('')
-          setNewPhone('')
-          setMessage(`${newName} added to the phonebook`)
-          setMessageType('success')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-    }
+      })
   }
 
-  const handleUpdateResponse = (response) => {
-    if (response && question) {
-      updatePerson(question.person.id, question.contactObject)
-    }
-    setQuestion(null)
-    setMessage(null)
+  const handleNoteChange = (event) => {
+    setNewNote(event.target.value)
   }
 
-  const handleDeleteResponse = (response) => {
-    if (response && pendingDeletion) {
-      const { id, name } = pendingDeletion
-      personService
-        .erase(id)
-        .then(() => {
-          setPersons(persons.filter(person => person.id !== id))
-          setMessage(`${name} deleted successfully`)
-          setMessageType('success')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-        .catch(error => {
-          console.error("Unable to delete the person: ", error.response.status)
-          setMessage(`Failed to delete ${name}, error: ${error.response.status}`)
-          setMessageType('error')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-    }
-    setPendingDeletion(null)
-  }
+  const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
-  const deletePerson = (id, name) => {
-    setMessage(`Do you really want to delete ${name}?`)
-    setMessageType('warning')
-    setPendingDeletion({ id, name })
+  if(!notes){
+    return null;
   }
 
   return (
-    <div className='maincontainer'>
-      <MessageAlert message={message} type={messageType} onResponse={pendingDeletion ? handleDeleteResponse : handleUpdateResponse} />
-      <Title text={'Phonebook'} />
-      <Filter handle={handleSearch} />
-      <PersonForm nameAction={handleName} phoneAction={handlePhone} addAction={addContact} nameState={newName} phoneState={newPhone} />
-      <Persons persons={persons} search={search} deletePerson={deletePerson} />
-      <Footer />
+    <div className='bdy'>
+      <Title text={'Notes'} />
+      <MessageAlert message={errorMessage} type={'error'} />
+      <div>
+        <button className='btn' onClick={() => setShowAll(!showAll)}>
+          show {showAll ? 'important' : 'all' }
+        </button>
+      </div>      
+      <ul className='tab'>
+        {notesToShow.map(note => 
+          <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
+        )}
+      </ul>
+      <form className='frm' onSubmit={addNote}>
+      <input
+          className='inpt'
+          value={newNote}
+          onChange={handleNoteChange}
+        />
+        <button className='btnin' type="submit">save</button>
+      </form> 
     </div>
   )
 }

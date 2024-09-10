@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 
 let notes = [
@@ -22,6 +24,7 @@ let notes = [
 ]
 
 const requestLogger = (request, response, next) => {
+  console.log('Origin:   ', request.headers['origin'])
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
   console.log('Body:  ', request.body)
