@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'https://notesback-w2ee.onrender.com/api/notes'
+const baseUrl = '/api/notes'
 
 const getAll = () => {
   const request = axios.get(baseUrl)
