@@ -68,7 +68,7 @@ const App = () => {
     event.preventDefault()
     const contactObject = {
       name: newName,
-      phone: newPhone
+      number: newPhone
     }
     const existingPerson = persons.find(person => person.name === newName)
     const existingNumber = persons.find(person => person.phone === newPhone)

@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 var morgan = require('morgan');
-
-app.use(express.json());
+const cors = require('cors')
 
 morgan.token('body', (req) => {
   return JSON.stringify(req.body);
@@ -33,6 +32,9 @@ let Persons = [
     "number": "39-23-6423122"
   }
 ]
+
+app.use(cors())
+app.use(express.json());
 
 const generateId = () => {
   let newId;

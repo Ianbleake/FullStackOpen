@@ -10,7 +10,7 @@ const Persons = ({ persons, search, deletePerson }) => {
           .filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
           .map(person => (
             <li className="number" key={person.id}>
-              {person.name}: {person.phone} 
+              {person.name}: {person.number} 
               <Button handle={() => deletePerson(person.id, person.name)} text={'Delete'} />
             </li>
           ))}
