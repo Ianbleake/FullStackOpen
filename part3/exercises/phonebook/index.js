@@ -45,10 +45,14 @@ app.get('/api/persons/:id',(request,response)=>{
 
 app.get('/info',(request,response)=>{
   const dataCount = Persons.length;
-  console.log('Count:',dataCount)
   const serverDate = new Date();
-  console.log("Fecha:", serverDate);
   response.send(`<h1>Phonebook has info for ${dataCount} people <br/> ${serverDate} </h1>`);
+})
+
+app.delete('/api/persons/:id',(request,response)=>{
+  const id = Number(request.params.id);
+  Persons = Persons.filter(person => person.id !== id);
+  response.status(204).end();
 })
 
 
