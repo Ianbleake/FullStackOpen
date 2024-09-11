@@ -1,18 +1,18 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-var morgan = require('morgan');
 const cors = require('cors');
+var morgan = require('morgan');
 const Person = require('./models/person')
 
 morgan.token('body', (req) => {
   return JSON.stringify(req.body);
 });
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
-app.use(express.static('dist'));
 app.use(cors());
 app.use(express.json());
+app.use(express.static('dist'));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 //*Consultas
 
@@ -43,10 +43,12 @@ app.get('/info', (request, response) => {
 });
 
 //*Eliminación
-app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id);
-  Persons = Persons.filter(person => person.id !== id);
-  response.status(204).end();
+app.delete('/api/persons/:id', (request, response, next) => {
+  Person.findByIdAndDelete(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 });
 
 //*Creación
@@ -69,6 +71,10 @@ app.post('/api/persons', (request, response) => {
   })
 });
 
+//*Midleware
+
+
+//*Server
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
