@@ -118,7 +118,7 @@ const App = () => {
         })
         .catch((error) => {
           if(error.response.status === 422){
-            setMessage('Format data incorrect')
+            setMessage('Data error: Remember the minlenght name: 3 and the number must be on format xx-yyyyyyyy or xxx-yyyyyyy ')
             setMessageType('error')
             setTimeout(() => {
               setMessage(null)

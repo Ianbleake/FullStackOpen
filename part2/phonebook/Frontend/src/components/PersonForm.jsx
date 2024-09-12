@@ -9,7 +9,7 @@ const PersonForm = ({nameAction,phoneAction,addAction,nameState,phoneState})=>{
           <input className="input_field" placeholder="Name:" onChange={nameAction} value={nameState}/>
         </div>
         <div>
-          <input className="input_field" placeholder="Phone:" onChange={phoneAction} value={phoneState} maxLength='10'/>
+          <input className="input_field" placeholder="Phone:" onChange={phoneAction} value={phoneState} maxLength='11'/>
         </div>
         <div>
           <button className="btn" onClick={addAction} type="submit">Add</button>
