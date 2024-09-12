@@ -14,7 +14,7 @@ morgan.token('body', (req) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.static('dist'));
-app.use(morgan(':method Endpoint: :url Status::status :res[content-length] Response: :body - :response-time ms'));
+app.use(morgan(':method Endpoint: :url Status::status :res[content-length] BodyReq: :body - :response-time ms'));
 
 const errorHandler = (error, request, response, next) => {
   console.error('Bad error:',error.message)
