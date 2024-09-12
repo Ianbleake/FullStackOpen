@@ -35,6 +35,14 @@ const App = () => {
       .then(initPersons => {
         setPersons(initPersons)
       })
+      .catch(error => {
+        console.error("Error:",error)
+        setMessage(`Data fetch failed`)
+        setMessageType('error')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
   }, [])
 
   const updatePerson = (id, contactObject) => {
@@ -107,6 +115,21 @@ const App = () => {
           setTimeout(() => {
             setMessage(null)
           }, 5000)
+        })
+        .catch((error) => {
+          if(error.response.status === 422){
+            setMessage('Format data incorrect')
+            setMessageType('error')
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          }else{
+            setMessage(`Error: ${error.response.status}`)
+            setMessageType('error')
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          }
         })
     }
   }
