@@ -10,10 +10,11 @@ morgan.token('body', (req) => {
   return JSON.stringify(req.body);
 });
 
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('dist'));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+app.use(morgan(':method Endpoint: :url Status::status :res[content-length] Response: :body - :response-time ms'));
 
 const errorHandler = (error, request, response, next) => {
   console.error('Bad error:',error.message)
