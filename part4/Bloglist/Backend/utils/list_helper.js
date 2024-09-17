@@ -40,6 +40,29 @@ const mostBlogs = (blogs)=>{
   return { author: maxAuthor, blogs: blogCount}
 }
 
+const mostLikes = (blogs)=>{
+  let likeCount = 0;
+  let maxAuthor = ''
+
+  blogs.map(blog => {
+    let autor = blog.author;
+    let papers = blogs.filter(paper => paper.author === autor)
+    let count = 0
+
+    papers.map(paper => {
+      count = count + paper.likes;
+    })
+
+    if(count>likeCount){
+      likeCount = count;
+      maxAuthor = blog.author;
+    }
+  })
+
+  return { author: maxAuthor, likes: likeCount }
+
+}
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs
+  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
