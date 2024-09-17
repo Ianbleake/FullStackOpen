@@ -23,6 +23,23 @@ const favoriteBlog = (blogs)=>{
     return  favBlog;
 }
 
+const mostBlogs = (blogs)=>{
+  let blogCount = 0;
+  let maxAuthor = ''
+
+  blogs.map((blog) => {
+    let autor = blog.author;
+    let papers = blogs.filter((paper) => paper.author === autor).length;
+
+    if(papers > blogCount){
+      blogCount = papers;
+      maxAuthor = autor;
+    }
+  })
+
+  return { author: maxAuthor, blogs: blogCount}
+}
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  dummy, totalLikes, favoriteBlog, mostBlogs
 }
