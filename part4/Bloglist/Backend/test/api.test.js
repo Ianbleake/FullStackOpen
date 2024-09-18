@@ -55,6 +55,15 @@ describe('Testing Api Bloglist',()=>{
       assert.deepStrictEqual(response.body,blogToFetch)
     })
 
+    test('Fail to fetching a inexistent ID', async () => { 
+
+      const notExitistingBlog = await helper.nonExistingId()
+
+      await api
+        .get(`/api/blogs/${notExitistingBlog}`)
+        .expect(404)
+    })
+
   });
   
   describe('Adding blogs to database', () => { 
