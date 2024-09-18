@@ -38,6 +38,28 @@ test('The blogs ID have the correct format', async () => {
   })
 })
 
+test('Blog added succesful',async ()=>{
+  const newBlog = {
+    title: "test article post",
+    author: "Ian Bleake",
+    url: "www.ian.blog",
+    likes: 12
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDB()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+
+  const contents = blogsAtEnd.map(n => n.title)
+  assert(contents.includes('test article post'))
+
+})
+
 
 
 after(async ()=>{
