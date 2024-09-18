@@ -60,6 +60,28 @@ test('Blog added succesful',async ()=>{
 
 })
 
+test('Blog without likes defaults to 0', async () => {
+  const newBlog = {
+    title: "Blog without likes",
+    author: "Anonymous",
+    url: "www.example.com"
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const savedBlog = response.body
+  assert.strictEqual(savedBlog.likes, 0) 
+
+  const blogsAtEnd = await helper.blogsInDB()
+  const blogInDB = blogsAtEnd.find(blog => blog.title === newBlog.title)
+  assert.strictEqual(blogInDB.likes, 0)
+})
+
+
 
 
 after(async ()=>{
