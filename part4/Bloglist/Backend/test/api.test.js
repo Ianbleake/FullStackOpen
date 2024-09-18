@@ -8,6 +8,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const { title } = require('node:process')
 
 beforeEach( async ()=>{
   await Blog.deleteMany({})
@@ -81,8 +82,39 @@ test('Blog without likes defaults to 0', async () => {
   assert.strictEqual(blogInDB.likes, 0)
 })
 
+test('blog withou Title is not added', async () => {
+  const newBlog = {
+    author: "Ian Bleake",
+    url: "www.example.com",
+    likes: 12
+  }
 
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
 
+  const blogsAtEnd = await helper.blogsInDB()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+  
+})
+
+test('blog withou URL is not added', async () => {
+  const newBlog = {
+    title: "test article post",
+    author: "Ian Bleake",
+    likes: 12
+  }
+
+  await api
+  .post('/api/blogs')
+  .send(newBlog)
+  .expect(400)
+
+  const blogsAtEnd = await helper.blogsInDB()
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+
+})
 
 after(async ()=>{
   await mongoose.connection.close()
