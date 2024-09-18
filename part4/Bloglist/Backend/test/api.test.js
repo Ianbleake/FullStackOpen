@@ -9,6 +9,7 @@ const api = supertest(app)
 
 const Blog = require('../models/blog')
 const note = require('../../../../part2/notes/NotesBack/models/note')
+const { title } = require('node:process')
 
 beforeEach( async ()=>{
   await Blog.deleteMany({})
@@ -133,6 +134,29 @@ test('Blog Deleted successful',async () => {
   assert(!contents.includes(blogToDelete.title))
 
  })
+
+ test('Blog likes can be updated', async () => {
+  const blogsAtStart = await helper.blogsInDB()
+  const blogToUpdate = blogsAtStart[0]
+
+  const updatedBlog = {
+    ...blogToUpdate,
+    likes: blogToUpdate.likes + 10
+  }
+
+  const response = await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send(updatedBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  assert.strictEqual(response.body.likes, updatedBlog.likes)
+
+  const blogsAtEnd = await helper.blogsInDB()
+  const blogAfterUpdate = blogsAtEnd.find(b => b.id === blogToUpdate.id)
+  assert.strictEqual(blogAfterUpdate.likes, updatedBlog.likes)
+})
+
 
 after(async ()=>{
   await mongoose.connection.close()
