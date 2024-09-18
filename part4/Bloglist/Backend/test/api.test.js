@@ -8,7 +8,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
-const { title } = require('node:process')
+const note = require('../../../../part2/notes/NotesBack/models/note')
 
 beforeEach( async ()=>{
   await Blog.deleteMany({})
@@ -115,6 +115,24 @@ test('blog withou URL is not added', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
 
 })
+
+test('Blog Deleted successful',async () => {
+
+  const blogsAtStart = await helper.blogsInDB()
+  const blogToDelete = blogsAtStart[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const blogsAtEnd = await helper.blogsInDB()
+
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length -1)
+
+  const contents = blogsAtEnd.map(r => r.title)
+  assert(!contents.includes(blogToDelete.title))
+
+ })
 
 after(async ()=>{
   await mongoose.connection.close()
