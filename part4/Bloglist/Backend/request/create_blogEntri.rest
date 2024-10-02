@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json 
+
+{
+"title": "Test",
+"author": "Yomero",
+"url": "www.blog.com",
+"likes": 23,
+"userId": "66fd81b712803b9277cb8750"
+}
