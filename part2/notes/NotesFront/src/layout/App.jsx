@@ -4,12 +4,14 @@ import noteService from '../services/notes'
 import { Title } from '../components/Title'
 import MessageAlert from '../components/MessageAlert'
 import LoginForm from '../components/LoginForm'
+import NoteForm from '../components/NoteForm'
 
 const App = () => {
   const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState({text: '', type: ''})
+  const [user, setUser] = useState(null)
 
   const [showLog, setShowLog] = useState(false)
 
@@ -46,11 +48,9 @@ const App = () => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(() => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        )
+        setErrorMessage({text:`Note '${note.content}' was already removed from server`,type: 'error'})
         setTimeout(() => {
-          setErrorMessage(null)
+          setErrorMessage({text: '', type: ''})
         }, 5000)
       })
   }
@@ -65,19 +65,19 @@ const App = () => {
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
+  console.log('User:',user)
+
   if(!notes){
     return null;
   }
 
   return (
     <div className='bdy'>
-      {showLog ? <LoginForm showHandler={handleShow} /> : ''}
-      <Title text={'Notes'} />
-      <MessageAlert message={errorMessage} type={'error'} />
+      {showLog ? <LoginForm showHandler={handleShow} alertHandler={setErrorMessage} userState={user} userHandler={setUser} /> : ''}
+      <Title text={user ? `Notes of ${user.name}`: 'Notes'} />
+      {errorMessage.text === '' ? '' :<MessageAlert message={errorMessage.text} type={errorMessage.type} />}
       <div className='buttons'>
-        <button className='btn' onClick={handleShow}>
-          Login
-        </button>
+        {!user ? <button className='btn' onClick={handleShow}>Login</button> : ''}
         <button className='btn' onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
@@ -87,14 +87,7 @@ const App = () => {
           <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
         )}
       </ul>
-      <form className='frm' onSubmit={addNote}>
-      <input
-          className='inpt'
-          value={newNote}
-          onChange={handleNoteChange}
-        />
-        <button className='btnin' type="submit">save</button>
-      </form> 
+      { user ? <NoteForm handler={addNote} noteState={newNote} stateHandler={handleNoteChange} /> : '' }
     </div>
   )
 }
