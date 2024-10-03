@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
-import Note from './components/Note'
-import noteService from './services/notes'
-import { Title } from './components/Title'
-import MessageAlert from './components/MessageAlert'
+import Note from '../components/Note'
+import noteService from '../services/notes'
+import { Title } from '../components/Title'
+import MessageAlert from '../components/MessageAlert'
+import LoginForm from '../components/LoginForm'
 
 const App = () => {
   const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
+
+  const [showLog, setShowLog] = useState(false)
 
   useEffect(() => {
     noteService
@@ -52,6 +55,10 @@ const App = () => {
       })
   }
 
+  const handleShow =()=> {
+    setShowLog(!showLog)
+  }
+
   const handleNoteChange = (event) => {
     setNewNote(event.target.value)
   }
@@ -64,9 +71,13 @@ const App = () => {
 
   return (
     <div className='bdy'>
+      {showLog ? <LoginForm showHandler={handleShow} /> : ''}
       <Title text={'Notes'} />
       <MessageAlert message={errorMessage} type={'error'} />
-      <div>
+      <div className='buttons'>
+        <button className='btn' onClick={handleShow}>
+          Login
+        </button>
         <button className='btn' onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
