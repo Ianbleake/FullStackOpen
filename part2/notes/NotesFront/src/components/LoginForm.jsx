@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import loginService from '../services/login'
+import noteService from '../services/notes'
 
 
 const LoginForm = ({showHandler,alertHandler,userState,userHandler}) => {
@@ -10,11 +11,11 @@ const LoginForm = ({showHandler,alertHandler,userState,userHandler}) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log(`Login user: ${username} pass: ${password}`)
 
     try{
 
       const user = await loginService.login({ username, password })
+      noteService.setToken(user.token)
       userHandler(user)
       setUsername('')
       setPassword('')
