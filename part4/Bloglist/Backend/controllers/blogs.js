@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const middleware = require('../utils/middleware')
 
 blogsRouter.get('/', async (request,response)=>{
   const blogs = await Blog
@@ -7,7 +8,7 @@ blogsRouter.get('/', async (request,response)=>{
   response.json(blogs)
 })
 
-blogsRouter.post('/', async (request, response) => {
+blogsRouter.post('/',middleware.userExtractor, async (request, response) => {
   const body = request.body
   const user = request.user
 
@@ -58,22 +59,28 @@ blogsRouter.put('/:id', async (request, response) => {
   }
 })
 
-blogsRouter.delete('/:id', async (request, response) => {
-  const user = request.user
+blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) => {
+  const user = request.user;
 
-  const blog = await Blog.findById(request.params.id)
+  try {
+    const blog = await Blog.findById(request.params.id);
 
-  if (!blog) {
-    return response.status(404).json({ error: 'blog not found' })
+    if (!blog) {
+      return response.status(404).json({ error: 'blog not found' });
+    }
+
+    if (blog.user.toString() !== user._id.toString()) {
+      return response.status(403).json({ error: 'only the creator can delete the blog' });
+    }
+
+    await Blog.findByIdAndDelete(request.params.id);
+    response.status(204).end();
+  } catch (error) {
+    console.error('Error deleting blog:', error);
+    response.status(500).json({ error: 'Internal server error' });
   }
+});
 
-  if (blog.user.toString() !== user._id.toString()) {
-    return response.status(403).json({ error: 'only the creator can delete the blog' })
-  }
-
-  await Blog.findByIdAndDelete(request.params.id)
-  response.status(204).end()
-})
 
 
 
