@@ -6,12 +6,14 @@ import blogService from '../services/blogs'
 import Loader from '../components/Loader'
 import LoginForm from '../components/LoginForm'
 import AddForm from '../components/AddForm'
+import Alert from '../components/Alert'
 
 const App = () => {
 
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [showAdd,setShowAdd] = useState(false)
+  const [alert,setAlert] = useState({text:'',type:''})
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -24,10 +26,15 @@ const App = () => {
     if(userJson){
       const user = JSON.parse(userJson)
       setUser(user)
+      blogService.setToken(user.token)
     }
   }, []);
 
   const handleLogout = ()=>{
+    setAlert({text:`Good bye! ${user.name}`,type:'info'})
+    setTimeout(() => {
+      setAlert({text:'',type:''})
+    }, 3000);
     window.localStorage.removeItem('LoggedUser')
     setUser(null)
   }
@@ -42,7 +49,8 @@ const App = () => {
 
   return (
     <Fragment>
-    {!user ? <LoginForm userState={user} userHandler={setUser} /> :
+    {alert.text==='' ? '' : <Alert message={alert.text} type={alert.type} /> }
+    {!user ? <LoginForm userHandler={setUser} alertHandler={setAlert} /> :
     <div className='bdy' > 
       <div className={`card ${showAdd ? 'blur' : '' }`} >
         <h2 className='title' >{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
@@ -58,7 +66,7 @@ const App = () => {
           </div> 
         : ''}
       </div>
-      {showAdd ? <AddForm state={blogs} stateHandler={setBlogs} showHandler={setShowAdd} /> : ''}
+      {showAdd ? <AddForm state={blogs} stateHandler={setBlogs} showHandler={setShowAdd} alertHandler={setAlert} /> : ''}
     </div>  
     }
     </Fragment>

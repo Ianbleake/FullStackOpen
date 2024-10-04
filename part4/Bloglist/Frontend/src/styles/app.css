@@ -76,3 +76,16 @@ body{
   margin-top: 15px;
 }
 
+.close {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+  font-size: 25px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  text-shadow: -1px -1px 1px #818c93;
+  color: #ffffff;
+  cursor: pointer;
+}
+

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
-const LoginForm = ({userState,userHandler,alertHandler}) => {
+const LoginForm = ({userHandler,alertHandler}) => {
 
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
@@ -18,9 +18,23 @@ const LoginForm = ({userState,userHandler,alertHandler}) => {
       window.localStorage.setItem('LoggedUser',JSON.stringify(user))
       setUsername('')
       setPassword('')
-      //TODO: Aqui va una alerta
+      alertHandler({text:`Welcome ${user.name}`,type:'success'})
+      setTimeout(() => {
+        alertHandler({text:'',type:''})
+      }, 3000);
     } catch (error) {
-      //TODO: Aqui va una alerta
+      console.log(error.response)
+      if(error.response.status === 401){
+        alertHandler({text:`Usuario y/o contraseña erroneos`,type:''})
+        setTimeout(() => {
+          alertHandler({text:'',type:''})
+        }, 3000);
+      }else{
+        alertHandler({text:`Something bad happen: ${error}`,type:''})
+        setTimeout(() => {
+          alertHandler({text:'',type:''})
+        }, 3000);
+      }
     }
   }
 
