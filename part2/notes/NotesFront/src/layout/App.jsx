@@ -5,6 +5,7 @@ import { Title } from '../components/Title'
 import MessageAlert from '../components/MessageAlert'
 import LoginForm from '../components/LoginForm'
 import NoteForm from '../components/NoteForm'
+import Loader from '../components/Loader'
 
 const App = () => {
   const [notes, setNotes] = useState(null)
@@ -22,6 +23,15 @@ const App = () => {
         setNotes(initialNotes)
       })
   }, [])
+
+  useEffect(()=>{
+    const loggedUserJSON = window.localStorage.getItem('LoggedUser')
+    if(loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
+    }
+  },[])
 
   const addNote = (event) => {
     event.preventDefault()
@@ -65,10 +75,9 @@ const App = () => {
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
-  console.log('User:',user)
 
   if(!notes){
-    return null;
+      return <Loader/>
   }
 
   return (

@@ -13,10 +13,10 @@ const LoginForm = ({showHandler,alertHandler,userState,userHandler}) => {
     event.preventDefault();
 
     try{
-
       const user = await loginService.login({ username, password })
       noteService.setToken(user.token)
       userHandler(user)
+      window.localStorage.setItem('LoggedUser',JSON.stringify(user))
       setUsername('')
       setPassword('')
       alertHandler({text:`Welcome ${user.name}`,type:'success'})

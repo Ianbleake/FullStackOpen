@@ -28,3 +28,14 @@ Content-Type: application/json
       "name": "IanBleke",
       "password": "Arv"
 }
+
+### Front user
+
+POST  http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+      "username": "Admin",
+      "name": "IanBleake",
+      "password": "1234"
+}
