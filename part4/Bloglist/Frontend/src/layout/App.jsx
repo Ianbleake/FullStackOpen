@@ -17,6 +17,19 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(() => {
+    const userJson = window.localStorage.getItem('LoggedUser');
+    if(userJson){
+      const user = JSON.parse(userJson)
+      setUser(user)
+    }
+  }, []);
+
+  const handleLogout = ()=>{
+    window.localStorage.removeItem('LoggedUSer')
+    setUser(null)
+  }
+
   if(!blogs){
     return <Loader />
   }
@@ -31,6 +44,7 @@ const App = () => {
             <Blog key={blog.id} blog={blog} />
           )}
         </div>
+        {user ? <div className='logout center' ><button className='btn' onClick={handleLogout} >LogOut</button></div> : ''}
       </div>
     }
     </Fragment>

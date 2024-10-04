@@ -13,6 +13,7 @@ const LoginForm = ({userState,userHandler,alertHandler}) => {
 
       const user = await loginService.login({username,password})
       userHandler(user)
+      window.localStorage.setItem('LoggedUser',JSON.stringify(user))
       setUsername('')
       setPassword('')
       

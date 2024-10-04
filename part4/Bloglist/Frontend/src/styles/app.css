@@ -38,7 +38,7 @@ body{
 }
 
 .blogs {
-  height: 88%;
+  height: 82%;
   width: 90%;
   margin: auto;
   display: flex;
@@ -63,4 +63,11 @@ body{
 
 .blog:last-child {
   margin-bottom: 20px;
+}
+
+.logout {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 }
