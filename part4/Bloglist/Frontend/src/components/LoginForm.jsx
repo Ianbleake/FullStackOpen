@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import loginService from '../services/login'
+import blogService from '../services/blogs'
 
 const LoginForm = ({userState,userHandler,alertHandler}) => {
 
@@ -12,13 +13,14 @@ const LoginForm = ({userState,userHandler,alertHandler}) => {
     try {
 
       const user = await loginService.login({username,password})
+      blogService.setToken(user.token)
       userHandler(user)
       window.localStorage.setItem('LoggedUser',JSON.stringify(user))
       setUsername('')
       setPassword('')
-      
+      //TODO: Aqui va una alerta
     } catch (error) {
-      
+      //TODO: Aqui va una alerta
     }
   }
 
