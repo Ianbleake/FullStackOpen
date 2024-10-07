@@ -10,7 +10,7 @@ import Alert from '../components/Alert'
 
 const App = () => {
 
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState(null)
   const [user, setUser] = useState(null)
   const [showAdd,setShowAdd] = useState(false)
   const [alert,setAlert] = useState({text:'',type:''})

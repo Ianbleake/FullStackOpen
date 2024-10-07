@@ -3,7 +3,7 @@ import loginService from '../services/login'
 import noteService from '../services/notes'
 
 
-const LoginForm = ({showHandler,alertHandler,userState,userHandler}) => {
+const LoginForm = ({showHandler,alertHandler,userHandler}) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -39,6 +39,7 @@ const LoginForm = ({showHandler,alertHandler,userState,userHandler}) => {
 
   return (
     <form className='input__container' onSubmit={handleLogin}>
+        <div className='close' onClick={showHandler} >X</div>
         <div className="shadow__input"></div>
         <button className="input__button__shadow" type='submit' >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" width="20px" height="20px" >

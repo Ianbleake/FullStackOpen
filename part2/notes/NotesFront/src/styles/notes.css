@@ -337,3 +337,34 @@ body{
     transform: translateY(0rem);
   }
 }
+
+.close {
+  position: absolute;
+  top: 87px;
+  right: -12px;
+  background: #e9b50b;
+  color: #000;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-size: 14px;
+  transform: translateZ(50px);
+  z-index: 4;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.close:hover{
+  background-color: #000;
+  color: #e9b50b;
+  transition: 300ms;
+}
+
+.btn.toggle {
+  margin-bottom: 20px;
+}
+
+.togglecont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
