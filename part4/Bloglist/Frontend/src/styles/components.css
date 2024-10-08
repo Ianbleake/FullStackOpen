@@ -6,6 +6,9 @@
   font-size: 30px;
   background: linear-gradient(90deg,#000 50%,#0000 0) right/200% 100%;
   animation: l21 2s infinite linear;
+  position: absolute;
+  top: 40%;
+  left: 40%;
 }
 
 .loader::before {

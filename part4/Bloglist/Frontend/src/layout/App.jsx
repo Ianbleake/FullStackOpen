@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import LoginForm from '../components/LoginForm'
 import AddForm from '../components/AddForm'
 import Alert from '../components/Alert'
+import Togglabble from '../components/Togglabble'
 
 const App = () => {
 
@@ -49,28 +50,31 @@ const App = () => {
 
   return (
     <Fragment>
-    {alert.text==='' ? '' : <Alert message={alert.text} type={alert.type} /> }
-    {!user ? <LoginForm userHandler={setUser} alertHandler={setAlert} /> :
-    <div className='bdy' > 
-      <div className={`card ${showAdd ? 'blur' : '' }`} >
-        <h2 className='title' >{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
-        <div className='blogs' >
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )}
+      {alert.text === '' ? '' : <Alert message={alert.text} type={alert.type} />}
+      {!user ? (
+        <LoginForm userHandler={setUser} alertHandler={setAlert} />
+      ) : (
+        <div className='bdy'>
+          <div className={`card ${showAdd ? 'blur' : ''}`}>
+            <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
+            <div className='blogs'>
+              {blogs.map((blog) => (
+                <Blog key={blog.id} blog={blog} />
+              ))}
+            </div>
+            <div className='logout'>
+              <button className='btn' onClick={handleLogout}>
+                LogOut
+              </button>
+              <Togglabble labelButton='+' click={handleAdd} showState={showAdd} />
+            </div>
+          </div>
+          {showAdd && ( <AddForm state={blogs} stateHandler={setBlogs} showHandler={setShowAdd} alertHandler={setAlert} /> )}
         </div>
-        {user ? 
-          <div className='logout' >
-            <button className='btn' onClick={handleLogout} >LogOut</button>
-            <button className='btn' onClick={handleAdd} >+</button>
-          </div> 
-        : ''}
-      </div>
-      {showAdd ? <AddForm state={blogs} stateHandler={setBlogs} showHandler={setShowAdd} alertHandler={setAlert} /> : ''}
-    </div>  
-    }
+      )}
     </Fragment>
-  )
+  );
+  
 }
 
 export default App

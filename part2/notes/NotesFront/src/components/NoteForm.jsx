@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const NoteForm = ({ noteState, addNote, alertHandler }) => {
+const NoteForm = ({ addNote }) => {
   const [newNote, setNewNote] = useState('')
 
   const handleSubmit = (event) => {
