@@ -60,7 +60,7 @@ const App = () => {
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
             <div className='blogs'>
               {blogs.map((blog) => (
-                <Dropeabble key={blog.id} blog={blog} />
+                <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} />
               ))}
             </div>
             <div className='logout'>

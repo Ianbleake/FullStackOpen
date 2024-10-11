@@ -2,8 +2,8 @@ import React from 'react'
 
 const Alert = ({message,type}) => {
   return ( 
-    <div class={`error ${type}`}>
-      <div class="error__icon">
+    <div className={`error ${type}`}>
+      <div className="error__icon">
         <svg
           fill="none"
           height="24"
@@ -17,8 +17,8 @@ const Alert = ({message,type}) => {
           ></path>
         </svg>
       </div>
-      <div class="error__title">{message}</div>
-      <div class="error__close">
+      <div className="error__title">{message}</div>
+      <div className="error__close">
         <svg
           height="20"
           viewBox="0 0 20 20"

@@ -39,31 +39,31 @@ const LoginForm = ({userHandler,alertHandler}) => {
   }
 
   return (
-    <div class="container">
+    <div className="container">
         <input type="checkbox" id="signup_toggle"/>
-        <form class="form" onSubmit={handleLogin} >
-            <div class="form_front">
-                <div class="form_details">Login</div>
-                <input value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" class="input" type="text" />
-                <input value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" class="input" type="password" />
-                <button type='submit' class="btn">Login</button>
+        <form className="form" onSubmit={handleLogin} >
+            <div className="form_front">
+                <div className="form_details">Login</div>
+                <input value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" className="input" type="text" />
+                <input value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" className="input" type="password" />
+                <button type='submit' className="btn">Login</button>
                 
-                {/* <span class="switch">Don't have an account? 
-                    <label class="signup_tog" for="signup_toggle">
+                {/* <span className="switch">Don't have an account? 
+                    <label className="signup_tog" for="signup_toggle">
                         Sign Up
                     </label>
                 </span> */}
               
             </div>
-            <div class="form_back">
-                <div class="form_details">SignUp</div>
-                <input placeholder="Firstname" class="input" type="text" disabled />
-                <input placeholder="Username" class="input" type="text" disabled />
-                <input placeholder="Password" class="input" type="text" disabled />
-                <input placeholder="Confirm Password" class="input" type="text" disabled />
-                <button class="btn">Signup</button>
-                <span class="switch">Already have an account? 
-                    <label class="signup_tog" for="signup_toggle">
+            <div className="form_back">
+                <div className="form_details">SignUp</div>
+                <input placeholder="Firstname" className="input" type="text" disabled />
+                <input placeholder="Username" className="input" type="text" disabled />
+                <input placeholder="Password" className="input" type="text" disabled />
+                <input placeholder="Confirm Password" className="input" type="text" disabled />
+                <button className="btn">Signup</button>
+                <span className="switch">Already have an account? 
+                    <label className="signup_tog" for="signup_toggle">
                         Sign In
                     </label>
                 </span>

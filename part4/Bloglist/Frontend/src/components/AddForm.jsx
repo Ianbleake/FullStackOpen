@@ -51,27 +51,27 @@ const AddForm = ({state,stateHandler,showHandler,alertHandler}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} class="formcontainer">
+    <form onSubmit={handleSubmit} className="formcontainer">
         
-        <div class="formcard">
+        <div className="formcard">
           <button className='close' onClick={()=>showHandler(false)} >X</button>
-            <a class="formtitle">Add a new blog</a>
-            <div class="inputBox">
+            <a className="formtitle">Add a new blog</a>
+            <div className="inputBox">
                 <input type="text" name='title' required="required" onChange={handleChange} value={title} />
-                <span class="user">Title</span>
+                <span className="user">Title</span>
             </div>
 
-            <div class="inputBox">
+            <div className="inputBox">
                 <input type="text" name='autor' required="required" onChange={handleChange} value={author} />
                 <span>Author</span>
             </div>
 
-            <div class="inputBox">
+            <div className="inputBox">
                 <input type="text" name='url' required="required" onChange={handleChange} value={url} />
                 <span>Url</span>
             </div>
 
-            <button type='submit' class="enter">Create</button>
+            <button type='submit' className="enter">Create</button>
 
         </div>
     </form>
