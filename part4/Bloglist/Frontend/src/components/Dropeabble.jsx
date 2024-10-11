@@ -15,21 +15,18 @@ const Dropeabble = ({ blog, state, stateHandler }) => {
       ...blog,
       likes: blog.likes+1
     }
-    console.log('Request:',likeObjet)
+    
     blogService.update(blog.id,likeObjet)
       .then(returnedBlog =>{
-        console.log('Response',returnedBlog)
 
         const original = state.find( n => n.id === returnedBlog.id )
 
-        console.log('Original:',original)
 
         const updated = {
           ...original,
           likes: returnedBlog.likes
         }
 
-        console.log('Updated:',updated)
 
         stateHandler(state.map(b => b.id !== blog.id ? b : updated))
       })
