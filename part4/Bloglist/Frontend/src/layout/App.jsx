@@ -8,6 +8,7 @@ import LoginForm from '../components/LoginForm'
 import AddForm from '../components/AddForm'
 import Alert from '../components/Alert'
 import Togglabble from '../components/Togglabble'
+import Dropeabble from '../components/Dropeabble'
 
 const App = () => {
 
@@ -59,7 +60,7 @@ const App = () => {
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
             <div className='blogs'>
               {blogs.map((blog) => (
-                <Blog key={blog.id} blog={blog} />
+                <Dropeabble key={blog.id} blog={blog} />
               ))}
             </div>
             <div className='logout'>

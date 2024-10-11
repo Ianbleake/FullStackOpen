@@ -48,6 +48,8 @@ body{
   overflow: scroll;
 }
 
+
+
 .blog {
   width: 100%;
   min-height: 50px;
@@ -57,9 +59,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 10px 20px;
   gap: 50px;
-  
+  transition: 500ms;
 }
 
 
@@ -102,4 +104,41 @@ body{
   transition: 400ms;
 }
 
+.info {
+  width: 70%;
+  transition: 700ms;
+}
 
+.ifo {
+  margin: 5px 0px;
+  font-weight: 600;
+}
+
+.if {
+  font-weight: 100;
+  margin-left: 10px;
+}
+
+.fullinfo {
+  display: none;
+  margin: 3px 10px;
+}
+
+.fullinfo.droped{
+  display: block;
+}
+
+@keyframes drop {
+  from{
+    height: 50px;
+  }
+  to{
+    height: 170px;
+  }
+}
+
+.blog.droped{
+  transition: 700ms;
+  animation: drop 700ms ease;
+  height: 170px;
+}
