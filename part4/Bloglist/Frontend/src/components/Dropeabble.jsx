@@ -20,12 +20,11 @@ const Dropeabble = ({ blog, state, stateHandler, alertHandler }) => {
     blogService
       .update(blog.id, likeObjet)
       .then((returnedBlog) => {
-        const original = state.find((n) => n.id === returnedBlog.id);
-        const updated = {
-          ...original,
-          likes: returnedBlog.likes,
-        };
-        stateHandler(state.map((b) => (b.id !== blog.id ? b : updated)));
+        const updatedBlogs = state.map((b) => 
+          b.id === blog.id ? { ...b, likes: returnedBlog.likes } : b
+        );
+        updatedBlogs.sort((a, b) => b.likes - a.likes);
+        stateHandler(updatedBlogs);
       })
       .catch((error) => {
         console.error('Error al dar like: ', error);
