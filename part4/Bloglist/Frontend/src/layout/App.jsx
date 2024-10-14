@@ -66,10 +66,12 @@ const App = () => {
         <div className='bdy'>
           <div className={`card ${showAdd ? 'blur' : ''}`}>
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
-            <div className='blogs'>
-              {blogs.map((blog) => (
-                <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} loggedUser={user} /> 
-              ))}
+            <div className='blogscont'>
+              <div className='blogs'>
+                {blogs.map((blog) => (
+                  <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} loggedUser={user} /> 
+                ))}
+              </div>
             </div>
 
             <div className='logout'>

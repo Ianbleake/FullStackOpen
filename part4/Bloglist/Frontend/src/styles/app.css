@@ -37,18 +37,20 @@ body{
   margin: 15px 0;
 }
 
-.blogs {
+.blogscont {
   height: 80%;
   width: 90%;
   margin: auto;
+  overflow: scroll;
+}
+
+.blogs {
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 20px;
-  overflow: scroll;
 }
-
-
 
 .blog {
   width: 100%;
