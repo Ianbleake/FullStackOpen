@@ -18,10 +18,18 @@ const App = () => {
   const [alert,setAlert] = useState({text:'',type:''})
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
+    blogService.getAll().then(blogs => {
+  
+      const compare = (a, b) => {
+        return b.likes - a.likes; 
+      }
+
+      const ordenatedBlogs = blogs.sort(compare);
+      
+      setBlogs(ordenatedBlogs);
+    });
+  }, []);
+  
 
   useEffect(() => {
     const userJson = window.localStorage.getItem('LoggedUser');
