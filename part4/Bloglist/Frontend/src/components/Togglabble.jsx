@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Togglabble = (props) => {
   return (
@@ -11,6 +12,10 @@ const Togglabble = (props) => {
       </div>
     </div>
   )
+}
+
+Togglabble.propTypes = {
+  labelButton: PropTypes.string.isRequired
 }
 
 export default Togglabble
