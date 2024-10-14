@@ -82,7 +82,4 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
   }
 });
 
-
-
-
 module.exports = blogsRouter

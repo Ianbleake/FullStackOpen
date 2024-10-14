@@ -142,3 +142,134 @@ body{
   animation: drop 700ms ease;
   height: 170px;
 }
+
+.ctas {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 21px;
+}
+
+.error.info.q {
+  position: absolute;
+  top: -9%;
+  left: 10%;
+}
+
+.confirm {
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.acceptButton {
+  width: 80px;
+  height: 30px;
+  background-color: #dadada;
+  transition-duration: .2s;
+  border: none;
+  color: rgb(46, 46, 46);
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px #bebdbd, 0 2px 4px -1px #bebdbd;
+  transition: all .6s ease;
+}
+
+.declineButton {
+  width: 80px;
+  height: 30px;
+  background-color: #dadada;
+  transition-duration: .2s;
+  color: rgb(46, 46, 46);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px #bebdbd, 0 2px 4px -1px #bebdbd;
+  transition: all .6s ease;
+}
+
+.declineButton:hover {
+  background-color: #ebebeb;
+  box-shadow: 0 10px 15px -3px #bebdbd, 0 4px 6px -2px #bebdbd;
+  transition-duration: .2s;
+}
+
+.acceptButton:hover {
+  background-color: #ebebeb;
+  box-shadow: 0 10px 15px -3px #bebdbd, 0 4px 6px -2px #bebdbd;
+  transition-duration: .2s;
+}
+
+/* From Uiverse.io by ahmed150up2 */ 
+.Btn {
+  width: 140px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.089);
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.leftContainer {
+  width: 60%;
+  height: 100%;
+  background-color: #0060ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.leftContainer .like {
+  color: white;
+  font-weight: 600;
+}
+
+.likeCount {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0060ff;
+  font-weight: 600;
+  position: relative;
+  background-color: white;
+}
+
+.likeCount::before {
+  height: 8px;
+  width: 8px;
+  position: absolute;
+  content: "";
+  background-color: rgb(255, 255, 255);
+  transform: rotate(45deg);
+  left: -4px;
+}
+
+.Btn:hover .leftContainer {
+  background-color: #1d4292;
+}
+
+.Btn:active .leftContainer {
+  background-color: #072b7a;
+}
+
+.Btn:active .leftContainer svg {
+  transform: scale(1.15);
+  transform-origin: top;
+}

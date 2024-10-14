@@ -68,9 +68,10 @@ const App = () => {
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
             <div className='blogs'>
               {blogs.map((blog) => (
-                <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} /> 
+                <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} /> 
               ))}
             </div>
+
             <div className='logout'>
               <button className='btn' onClick={handleLogout}>
                 LogOut
