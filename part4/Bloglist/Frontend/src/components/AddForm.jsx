@@ -57,21 +57,21 @@ const AddForm = ({state,stateHandler,showHandler,alertHandler}) => {
           <button className='close' onClick={()=>showHandler(false)} >X</button>
             <a className="formtitle">Add a new blog</a>
             <div className="inputBox">
-                <input type="text" name='title' required="required" onChange={handleChange} value={title} />
+                <input data-testid='title' type="text" name='title' required="required" onChange={handleChange} value={title} />
                 <span className="user">Title</span>
             </div>
 
             <div className="inputBox">
-                <input type="text" name='autor' required="required" onChange={handleChange} value={author} />
+                <input data-testid='autor' type="text" name='autor' required="required" onChange={handleChange} value={author} />
                 <span>Author</span>
             </div>
 
             <div className="inputBox">
-                <input type="text" name='url' required="required" onChange={handleChange} value={url} />
+                <input data-testid='url' type="text" name='url' required="required" onChange={handleChange} value={url} />
                 <span>Url</span>
             </div>
 
-            <button type='submit' className="enter">Create</button>
+            <button data-testid='create' type='submit' className="enter">Create</button>
 
         </div>
     </form>
