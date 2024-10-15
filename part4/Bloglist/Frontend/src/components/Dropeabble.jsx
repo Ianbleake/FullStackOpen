@@ -4,6 +4,7 @@ import Alert from './Alert';
 
 
 const Dropeabble = ({ blog, state, stateHandler, alertHandler, loggedUser }) => {
+  
   const [drop, setDrop] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertConfig, setAlertConfig] = useState({}); 
