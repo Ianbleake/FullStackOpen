@@ -1,5 +1,4 @@
 import { useState, useEffect, Fragment } from 'react'
-import Blog from '../components/Blog'
 import '../styles/app.css'
 import '../styles/components.css'
 import blogService from '../services/blogs'
@@ -68,9 +67,12 @@ const App = () => {
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
             <div className='blogscont'>
               <div className='blogs'>
-                {blogs.map((blog) => (
-                  <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} loggedUser={user} /> 
-                ))}
+                { !blogs ? 
+                  blogs.map((blog) => (
+                    <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} loggedUser={user} /> 
+                  )) :
+                  <h1 className='blog empty' >No content on DataBase</h1>
+                }
               </div>
             </div>
 

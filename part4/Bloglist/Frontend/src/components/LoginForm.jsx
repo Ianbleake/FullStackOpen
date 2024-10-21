@@ -47,26 +47,7 @@ const LoginForm = ({userHandler,alertHandler}) => {
                 <input value={username} onChange={({target})=>setUsername(target.value)} placeholder="Username" className="input" type="text" />
                 <input value={password} onChange={({target})=>setPassword(target.value)} placeholder="Password" className="input" type="password" />
                 <button type='submit' className="btn">Login</button>
-                
-                {/* <span className="switch">Don't have an account? 
-                    <label className="signup_tog" htmlFor="signup_toggle">
-                        Sign Up
-                    </label>
-                </span> */}
               
-            </div>
-            <div className="form_back">
-                <div className="form_details">SignUp</div>
-                <input placeholder="Firstname" className="input" type="text" disabled />
-                <input placeholder="Username" className="input" type="text" disabled />
-                <input placeholder="Password" className="input" type="text" disabled />
-                <input placeholder="Confirm Password" className="input" type="text" disabled />
-                <button className="btn">Signup</button>
-                <span className="switch">Already have an account? 
-                    <label className="signup_tog" htmlFor="signup_toggle">
-                        Sign In
-                    </label>
-                </span>
             </div>
         </form>
     </div>
