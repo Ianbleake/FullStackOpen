@@ -111,6 +111,9 @@ const App = () => {
         <NoteForm noteState={notes} addNote={handleAddNote} alertHandler={setErrorMessage} />
       </Togglable>
       : '' }
+      <div className='copy' >
+        <p>Note app, Department of Computer Science, University of Helsinki 2024</p>
+      </div>
     </div>
   )
 }

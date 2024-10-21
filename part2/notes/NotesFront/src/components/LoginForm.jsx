@@ -41,14 +41,14 @@ const LoginForm = ({showHandler,alertHandler,userHandler}) => {
     <form className='input__container' onSubmit={handleLogin}>
         <div className='close' onClick={showHandler} >X</div>
         <div className="shadow__input"></div>
-        <button className="input__button__shadow" type='submit' >
+        <button id='login' className="input__button__shadow" type='submit' >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" width="20px" height="20px" >
             <path d="M0 0h24v24H0z" fill="none"></path>
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
           </svg>
         </button>
-        <input type="text" value={username} onChange={({ target }) => setUsername(target.value)} name="username" className="input__search" placeholder="Username" />
-        <input type="password" value={password} onChange={({ target }) => setPassword(target.value)} name="password" className="input__search" placeholder="Password" />
+        <input data-testid='username' type="text" value={username} onChange={({ target }) => setUsername(target.value)} name="username" className="input__search" placeholder="Username" />
+        <input data-testid='password' type="password" value={password} onChange={({ target }) => setPassword(target.value)} name="password" className="input__search" placeholder="Password" />
 
     </form>
   )
