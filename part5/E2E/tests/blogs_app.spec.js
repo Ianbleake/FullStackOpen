@@ -69,9 +69,9 @@ describe('Blog App',()=>{
       test('Add a like to the blog', async ({ page }) => {
         await expect(page.getByText(data.title)).toBeVisible()
         await page.locator('label div').first().click()
-        await expect(page.getByText(data.author)).toBeVisible()
-
-      } )
+        await page.getByTestId('like').click()
+        await expect(page.getByTestId('likescount')).toContainText('1')
+      })
 
 
     })
