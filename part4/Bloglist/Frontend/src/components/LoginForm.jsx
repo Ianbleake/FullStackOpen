@@ -39,7 +39,7 @@ const LoginForm = ({userHandler,alertHandler}) => {
   }
 
   return (
-    <div className="container">
+    <div data-testid='Logform' className="container">
         <input type="checkbox" id="signup_toggle"/>
         <form className="form" onSubmit={handleLogin} >
             <div className="form_front">
@@ -49,7 +49,7 @@ const LoginForm = ({userHandler,alertHandler}) => {
                 <button type='submit' className="btn">Login</button>
                 
                 {/* <span className="switch">Don't have an account? 
-                    <label className="signup_tog" for="signup_toggle">
+                    <label className="signup_tog" htmlFor="signup_toggle">
                         Sign Up
                     </label>
                 </span> */}
@@ -63,7 +63,7 @@ const LoginForm = ({userHandler,alertHandler}) => {
                 <input placeholder="Confirm Password" className="input" type="text" disabled />
                 <button className="btn">Signup</button>
                 <span className="switch">Already have an account? 
-                    <label className="signup_tog" for="signup_toggle">
+                    <label className="signup_tog" htmlFor="signup_toggle">
                         Sign In
                     </label>
                 </span>

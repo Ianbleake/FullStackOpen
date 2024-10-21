@@ -4,7 +4,7 @@ const User = require('../models/user')
 
 
 const requestLogger = (request, response, next) => {
-  console.log('Origin:   ', request.headers['origin'])
+  console.log('Origin:   ', request.headers.host)
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
   console.log('Body:  ', request.body)
