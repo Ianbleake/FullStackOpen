@@ -29,6 +29,7 @@ const App = () => {
     });
   }, []);
   
+  console.log(blogs)
 
   useEffect(() => {
     const userJson = window.localStorage.getItem('LoggedUser');
@@ -67,7 +68,7 @@ const App = () => {
             <h2 className='title'>{user ? `Blogs of ${user.name}` : 'Blogs'}</h2>
             <div className='blogscont'>
               <div className='blogs'>
-                { !blogs ? 
+                { blogs.length > 0 ? 
                   blogs.map((blog) => (
                     <Dropeabble key={blog.id} blog={blog} state={blogs} stateHandler={setBlogs} alertHandler={setAlert} loggedUser={user} /> 
                   )) :
