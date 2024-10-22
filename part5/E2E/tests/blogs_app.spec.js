@@ -111,6 +111,22 @@ describe('Blog App',()=>{
         await expect(page.getByTestId('likescount')).toContainText('1')
       })
 
+      test('Order by likes', async ({ page })=>{
+        await CreateBlog(page,{ title: 'Second Blog',author: 'IanBleake', url: 'www.blog.com'})
+        await CreateBlog(page,{ title: 'Third Blog',author: 'IanBleake', url: 'www.blog.com'})
+        await expect(page.getByText('Second Blog')).toBeVisible()
+        await expect(page.getByText('Third Blog')).toBeVisible()
+        await expect(page.getByText(data.title)).toBeVisible()
+        await page.locator('div:nth-child(3) > .ctas > .label > .toggle').click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.locator('div:nth-child(3) > .ctas > .label > .toggle').click()
+        
+
+        
+      })
+
 
     })
 
