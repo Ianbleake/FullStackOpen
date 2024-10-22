@@ -101,7 +101,7 @@ const Dropeabble = ({ blog, state, stateHandler, alertHandler, loggedUser }) => 
           </div>
         </label>
 
-        { blog.user.username == loggedUser.username && (
+        { blog.user.id == loggedUser.id || blog.user == loggedUser.id && (
           <button data-testid='delete' onClick={handleDeleteClick} className={`deleteButton ${drop ? 'droped' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 50 59" className="bin">
               <path fill="#B5BAC1" d="M0 7.5C0 5.01472 2.01472 3 4.5 3H45.5C47.9853 3 50 5.01472 50 7.5V7.5C50 8.32843 49.3284 9 48.5 9H1.5C0.671571 9 0 8.32843 0 7.5V7.5Z"></path>

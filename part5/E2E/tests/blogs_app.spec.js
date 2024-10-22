@@ -1,5 +1,6 @@
 const { test, expect, beforeEach, describe } = require('@playwright/test')
 const { Login, CreateBlog } = require('./helper')
+const { create } = require('domain')
 
 describe('Blog App',()=>{
 
@@ -51,6 +52,22 @@ describe('Blog App',()=>{
     test('Creating a new blog', async ({ page })=>{
       await CreateBlog(page,data)
       await expect(page.getByText(data.title)).toBeVisible()
+    })
+
+    describe('Deleting Blogs',async ()=>{
+
+      beforeEach(async ({ page })=>{
+        await CreateBlog(page,data)
+      })
+
+      test('Deleting a blog',async ({ page }) => {
+        await expect(page.getByText(data.title)).toBeVisible()
+        await page.locator('label div').first().click()
+        await page.getByTestId('delete').click()
+        await page.getByText('yes').click()
+        await expect(page.getByText(data.title)).not.toBeVisible()
+      })
+
     })
 
     

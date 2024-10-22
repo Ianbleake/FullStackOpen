@@ -11,8 +11,8 @@ const LoginForm = ({userHandler,alertHandler}) => {
     event.preventDefault();
 
     try {
-
       const user = await loginService.login({username,password})
+      console.log(user)
       blogService.setToken(user.token)
       userHandler(user)
       window.localStorage.setItem('LoggedUser',JSON.stringify(user))
@@ -23,7 +23,6 @@ const LoginForm = ({userHandler,alertHandler}) => {
         alertHandler({text:'',type:''})
       }, 3000);
     } catch (error) {
-      console.log(error.response)
       if(error.response.status === 401){
         alertHandler({text:`Usuario y/o contraseña erroneos`,type:''})
         setTimeout(() => {
