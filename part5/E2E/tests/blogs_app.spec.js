@@ -68,6 +68,27 @@ describe('Blog App',()=>{
         await expect(page.getByText(data.title)).not.toBeVisible()
       })
 
+      test('Only the creator can delete blogs',async ({ page, request })=>{
+
+        await request.post('/api/users', {
+          data: {
+          name: 'IanTest2',
+          username: 'OtherUSer',
+          password: 'Arviluki.123'
+          }
+         })
+        await page.getByRole('button', { name: 'LogOut' }).click()
+        await expect(page.getByPlaceholder('Username')).toBeVisible()
+        await Login(page, 'OtherUSer', 'Arviluki.123')
+        await CreateBlog(page,{ title: 'Other',author: 'IanBleake', url: 'www.blog.com'})
+        await expect(page.getByText(data.title)).toBeVisible()
+        await page.locator('label div').first().click()
+        await expect(page.getByTestId('delete')).not.toBeVisible()
+        await expect(page.getByText('Other')).toBeVisible()
+        await page.locator('div:nth-child(2) > .ctas > .label > .toggle').click()
+        await expect(page.getByTestId('delete')).toBeVisible()
+      })
+
     })
 
     
