@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createStore } from 'redux'
 import reducer from './Reducers/reducer'
+import './Styles/app.css'
 
 const store = createStore(reducer)
 
@@ -13,16 +14,42 @@ const App = () => {
     })
   }
 
+  const ok = () => {
+    store.dispatch({
+      type: 'OK'
+    })
+  }
+
+  const bad = () => {
+    store.dispatch({
+      type: 'BAD'
+    })
+  } 
+
+  const zero = () => {
+    store.dispatch({
+      type: 'ZERO'
+    })
+  }
+
 
   return (
-    <div>
-      <button onClick={good}>good</button> 
-      <button>ok</button> 
-      <button>bad</button>
-      <button>reset stats</button>
-      <div>good {store.getState().good}</div>
-      <div>ok</div>
-      <div>bad</div>
+    <div className='container' >
+      <div className='stats' >
+        <div className='stat' >
+          <div className='count' >{store.getState().good}</div>
+          <button className='btn' onClick={good}>good</button> 
+        </div>
+        <div className='stat' >
+          <div className='count' >{store.getState().ok}</div>
+          <button className='btn' onClick={ok}>ok</button> 
+        </div>
+        <div className='stat' >
+          <div className='count' >{store.getState().bad}</div>
+          <button className='btn' onClick={bad}>bad</button>
+        </div>
+      </div>
+      <button className='btn rest' onClick={zero}>reset stats</button>
     </div>
   )
 }
