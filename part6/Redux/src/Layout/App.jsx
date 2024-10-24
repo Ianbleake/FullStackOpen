@@ -1,15 +1,18 @@
-import './App.css'
+import '../Styles/index.css'
+import '../Styles/App.css'
+import Notes from '../Components/Notes'
+import NewNote from '../Components/NewNote'
+
 
 const App = () => {
+
   return(
-    <div>
-      <ul>
-        {store.getState().map(note=>
-          <li key={note.id}>
-            {note.content} <strong>{note.important ? 'important' : ''}</strong>
-          </li>
-        )}
-        </ul>
+    <div className='card' >
+      <h1 className='title' >Notes</h1>
+      <div className='notes' >
+        <Notes/>
+      </div>
+      <NewNote/>
     </div>
   )
 }

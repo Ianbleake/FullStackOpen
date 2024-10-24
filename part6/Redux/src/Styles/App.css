@@ -1,42 +1,127 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html{
+  width: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body{
+  width: 100%;
+  background-color: aliceblue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#root{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+ul{
+  list-style: none;
 }
 
 .card {
-  padding: 2em;
+  width: 390px;
+  height: 600px;
+  margin: 50px auto;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 20px 20px 60px #bebebe,-20px -20px 60px #ffffff;
+ }
+
+ .title {
+  text-align: center;
+  line-height: 60px;
 }
 
-.read-the-docs {
-  color: #888;
+.notes {
+  height: 80%;
+  width: 90%;
+  margin: auto;
+  overflow: scroll;
+}
+
+.notescont {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.note {
+  display: flex;
+  min-height: 10%;
+  padding: 10px 8px;
+  border: none;
+  font-size: 1em;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  background: #f3f3f3;
+  box-shadow: inset -2px -2px 4px #ffffff, inset 2px 2px 4px rgba(0, 0, 0, 0.356);
+  text-decoration: none;
+  background: linear-gradient(to right,white, #80808010, white);
+  background-size: 200% 200%;
+  text-align: left;
+  line-height: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+
+.important {
+  font-family: cursive;
+  font-size: 40px;
+  font-weight: bold;
+  color: orangered;
+}
+
+form.addForm {
+  height: 10%;
+  border-radius: 0px 0px 50px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.input {
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: lightgrey;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  transition: 0.3s;
+ }
+ 
+ .input:focus {
+  outline-color: #e8e8e8;
+  background: #e8e8e8;
+  box-shadow: inset 20px 20px 60px #c5c5c5,
+     inset -20px -20px 60px #ffffff;
+  transition: 0.3s;
+ }
+
+.btn {
+  color: #090909;
+  padding: 0.5em 1em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.btn:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }

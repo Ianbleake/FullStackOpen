@@ -1,8 +1,46 @@
 const noteReducer = (state = [], action) => {
-  if (action.type === 'NEW_NOTE') {
-    state.push(action.payload)
-    return state
-  }
+  switch(action.type) {
 
-  return state
+    case 'NEW_NOTE':
+      console.log("payload:", action.data)
+      return [...state, action.data];
+
+    case 'TOGGLE_IMPORTANCE': {
+      const id = action.payload.id
+      const noteToChange = state.find(n => n.id === id)
+      const changedNote = { 
+        ...noteToChange, 
+        important: !noteToChange.important 
+      }
+      return state.map(note =>
+        note.id !== id ? note : changedNote 
+      )
+    }
+
+    default:
+      return state
+  }
 }
+
+const generateId = () =>
+  Number((Math.random() * 1000000).toFixed(0))
+
+export const createNote = (content) => {
+  return {
+    type: 'NEW_NOTE',
+    data: {
+      content,
+      important: false,
+      id: generateId()
+    }
+  }
+}
+
+export const toggleImportanceOf = (id) => {
+  return {
+    type: 'TOGGLE_IMPORTANCE',
+    payload: { id }
+  }
+}
+
+export default noteReducer
