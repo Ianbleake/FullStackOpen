@@ -12,7 +12,7 @@ const App = () => {
     dispatch(create(event.target.story.value))
     event.target.story.value = ''
   }
-
+ 
   console.log('Store:', anecdotes )
 
   return (
