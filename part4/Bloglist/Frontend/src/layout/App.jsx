@@ -28,8 +28,6 @@ const App = () => {
       setBlogs(ordenatedBlogs);
     });
   }, []);
-  
-  console.log(blogs)
 
   useEffect(() => {
     const userJson = window.localStorage.getItem('LoggedUser');
