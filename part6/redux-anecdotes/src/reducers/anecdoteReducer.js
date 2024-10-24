@@ -18,6 +18,14 @@ const asObject = (anecdote) => {
   }
 }
 
+export const create = (content) => {
+  const newStory = asObject(content)
+  return {
+    type: 'ADD',
+    data: newStory
+  }
+}
+
 export const vote = (id) => {
   return {
     type: 'VOTE',
@@ -33,6 +41,7 @@ const reducer = (state = initialState, action) => {
   console.log('Action:',action)
   
   switch(action.type){
+
     case 'VOTE': {
       const id = action.data.id
       const anecdote = state.find(a => a.id === id )
@@ -42,6 +51,10 @@ const reducer = (state = initialState, action) => {
       }
       return state.map(story => story.id !== id ? story : updateAnecdote )
     }
+
+    case 'ADD': {
+      return [ ...state, action.data ]
+    } 
 
   }
 
