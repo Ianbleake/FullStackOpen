@@ -1,13 +1,20 @@
 import AnecdoteForm from '../components/AnecdoteForm'
 import AnecdoteList from '../components/AnecdoteList'
+import Filter from  '../components/Filter'
+import '../Styles/App.css'
 
 const App = () => {
 
   return (
-    <div>
-      <h2>Anecdotes</h2>
-      <AnecdoteList/>
-      <AnecdoteForm/>
+    <div className='card shadow' >
+        <div className='titleContainer'>
+          <span className='title' >Anecdotes</span>
+          <Filter/>
+        </div>
+        <div className="AnCont">
+          <AnecdoteList/>
+        </div>
+        <AnecdoteForm/>
     </div>
   )
 }

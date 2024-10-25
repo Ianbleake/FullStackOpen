@@ -37,8 +37,6 @@ export const vote = (id) => {
 
 
 const reducer = (state = initialState, action) => {
-
-  console.log('Action:',action)
   
   switch(action.type){
 
