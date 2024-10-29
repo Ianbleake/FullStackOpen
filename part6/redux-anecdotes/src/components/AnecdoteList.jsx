@@ -14,7 +14,8 @@ const AnecdoteList = () => {
       return filteredAnecdotes
     }
   })
-  const orderedAnecdotes = anecdotes.sort((a, b) => {return b.votes - a.votes})
+
+  const orderedAnecdotes = [...anecdotes].sort((a, b) => {return b.votes - a.votes})
   const dispatch = useDispatch()
  
   console.log('Store:', anecdotes )
