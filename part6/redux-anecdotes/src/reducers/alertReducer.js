@@ -2,20 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const alertSlice = createSlice({
   name: 'alert',
-  initialState: null,
+  initialState: null,  
   reducers: {
     addAlert: (state, action) => {
-      const newAlert = action.payload;
-      state.push(newAlert);
-    },
-    removeAlert: (state, action) => {
-      return state.filter((alert, index) => index !== action.payload);
+      return action.payload;  
     },
     clearAlerts: () => {
-      return null;
+      return null;  
     }
   }
 });
 
-export const { addAlert, removeAlert, clearAlerts } = alertSlice.actions;
+export const { addAlert, clearAlerts } = alertSlice.actions;
 export default alertSlice.reducer;
