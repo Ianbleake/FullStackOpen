@@ -287,3 +287,7 @@ input:hover {
 .error__close path {
   fill: #fff;
 }
+
+form.addForm {
+  margin: auto;
+}
