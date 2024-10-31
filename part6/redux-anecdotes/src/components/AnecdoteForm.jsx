@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { create } from '../reducers/anecdoteReducer'
-import { addAlert, clearAlerts } from '../reducers/alertReducer'
+import { SetAlert } from '../reducers/alertReducer'
 
 const AnecdoteForm = () => {
 
@@ -11,11 +11,7 @@ const AnecdoteForm = () => {
     const content = event.target.story.value
     event.target.story.value = ''
     dispatch(create(content))
-    
-    dispatch(addAlert({ text: 'Your anecdote was added successfully!', type: 'success' }));
-    setTimeout(() => {
-      dispatch(clearAlerts()); 
-    }, 5000);
+    dispatch(SetAlert({ text: 'Your anecdote has saved succesful', type: 'success' },5000))
   }
 
   return (

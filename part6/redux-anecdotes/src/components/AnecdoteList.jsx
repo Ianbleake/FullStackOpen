@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { vote } from '../reducers/anecdoteReducer'
-import { addAlert, clearAlerts } from '../reducers/alertReducer';
+import { SetAlert } from '../reducers/alertReducer';
 
 const AnecdoteList = () => {
 
@@ -21,10 +21,7 @@ const AnecdoteList = () => {
 
   const handleVote = (id) => {
     dispatch(vote(id));
-    dispatch(addAlert({ text: 'Your vote was added successfully!', type: 'info' }));
-    setTimeout(() => {
-      dispatch(clearAlerts()); 
-    }, 5000);
+    dispatch(SetAlert({ text: 'Your vote was added successfully!', type: 'info' },5000))
   }
 
   return (
