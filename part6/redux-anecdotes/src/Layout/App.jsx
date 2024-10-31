@@ -5,18 +5,16 @@ import Filter from  '../components/Filter'
 import Notification from '../components/Notification'
 import '../Styles/App.css'
 import { useEffect } from 'react'
-import { setAnecdotes } from '../reducers/anecdoteReducer'
-import anecdoteService from '../Services/anecdotes'
+import { initialAnecdotes } from '../reducers/anecdoteReducer'
+
 
 
 const App = () => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    anecdoteService
-      .getAll()
-        .then(a => dispatch(setAnecdotes(a)))
-  },[dispatch])
+    dispatch(initialAnecdotes())
+  },[])
 
   return (
     <div className='card shadow' >

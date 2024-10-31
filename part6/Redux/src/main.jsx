@@ -6,13 +6,7 @@ import App from './Layout/App'
 import noteReducer, { setNotes } from './Reducers/Reducer'
 import filterReducer from './Reducers/filterReducer'
 import './Styles/index.css'
-
-const store = configureStore({
-  reducer: {
-    notes: noteReducer,
-    filter: filterReducer
-  }
-})
+import store from './store'
 
 console.log(store.getState())
 
