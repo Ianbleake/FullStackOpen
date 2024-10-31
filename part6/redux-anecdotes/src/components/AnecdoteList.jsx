@@ -22,7 +22,6 @@ const AnecdoteList = () => {
   const handleVote = (id) => {
     dispatch(vote(id));
     dispatch(addAlert({ text: 'Your vote was added successfully!', type: 'info' }));
-    
     setTimeout(() => {
       dispatch(clearAlerts()); 
     }, 5000);
