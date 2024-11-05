@@ -24,6 +24,11 @@
       "id": "7b99",
       "content": "swsw",
       "important": false
+    },
+    {
+      "id": "d433",
+      "content": "New note",
+      "important": true
     }
   ]
 }
