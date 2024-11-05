@@ -12,6 +12,7 @@ const App = () => {
   const result = useQuery({
     queryKey: ['anecdotes'],
     queryFn: getAnecdotes,
+    refetchOnWindowFocus: false
   })
 
   console.log(JSON.parse(JSON.stringify(result)))
