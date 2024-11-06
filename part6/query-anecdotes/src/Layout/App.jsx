@@ -1,8 +1,12 @@
 import AnecdoteForm from '../components/AnecdoteForm'
+import Loader from '../components/Loader'
 import Notification from '../components/Notification'
 import { NotificationContextProvider } from '../Context/NotificationContext'
 import { getAnecdotes, updateAnecdote } from '../Services/request'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import BadRequest from '../components/BadRequest'
+import EmergencyButton from '../components/EmergencyButton'
+import '../Styles/App.css'
 
 const App = () => {
 
@@ -28,9 +32,14 @@ const App = () => {
   console.log(JSON.parse(JSON.stringify(result)))
 
   if(result.isLoading){
-    return <div>Loading...</div>
+    return <Loader/>
   }else if(result.isError){
-    return <div>Anecdote service not available due to problems in server</div>
+    return (
+      <>
+        <BadRequest/>
+        <EmergencyButton/>
+      </>
+    )
   }
 
   const anecdotes = result.data
