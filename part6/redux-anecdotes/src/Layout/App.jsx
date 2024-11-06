@@ -6,8 +6,7 @@ import Notification from '../components/Notification'
 import '../Styles/App.css'
 import { useEffect } from 'react'
 import { initialAnecdotes } from '../reducers/anecdoteReducer'
-
-
+import { NotificationContextProvider } from '../Context/NotificationContext'
 
 const App = () => {
 
@@ -17,17 +16,19 @@ const App = () => {
   },[])
 
   return (
-    <div className='card shadow' >
-      <Notification />
-        <div className='titleContainer'>
-          <span className='title' >Anecdotes</span>
-          <Filter/>
-        </div>
-        <div className="AnCont">
-          <AnecdoteList/>
-        </div>
-        <AnecdoteForm/>
-    </div>
+    <NotificationContextProvider>
+      <div className='card shadow' >
+        <Notification />
+          <div className='titleContainer'>
+            <span className='title' >Anecdotes</span>
+            <Filter/>
+          </div>
+          <div className="AnCont">
+            <AnecdoteList/>
+          </div>
+          <AnecdoteForm/>
+      </div>
+      </NotificationContextProvider>
   )
 }
 

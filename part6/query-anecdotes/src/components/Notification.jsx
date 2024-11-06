@@ -1,16 +1,15 @@
+import { useContext } from "react"
+import NotificationContext from "../Context/NotificationContext"
+
 const Notification = () => {
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1,
-    marginBottom: 5
-  }
-  let condition = true
-  if (condition) return null
+
+  const [alert, alertDispatch] = useContext(NotificationContext)
+
+  if(alert===null) return null
 
   return (
-    <div style={style}>
-      
+    <div>
+      {alert}
     </div>
   )
 }
