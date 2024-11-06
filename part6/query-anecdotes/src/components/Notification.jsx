@@ -1,9 +1,8 @@
-import { useContext } from "react"
-import NotificationContext from "../Context/NotificationContext"
+import { useAlertValue } from "../Context/NotificationContext"
 
 const Notification = () => {
 
-  const [alert, alertDispatch] = useContext(NotificationContext)
+  const alert = useAlertValue()
 
   if(alert===null) return null
 
