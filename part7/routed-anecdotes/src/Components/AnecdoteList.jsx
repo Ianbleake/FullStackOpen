@@ -16,9 +16,9 @@ const AnecdoteList = ({anecdotes, setAnecdotes}) => {
   }
 
   return (
-    <div>
-      <h2>Anecdotes</h2>
-      <ul>
+    <div className="anecdotes" >
+      <h2 className="subtitle">Anecdotes</h2>
+      <ul className="list">
         {anecdotes.map(anecdote => <Anecdote key={anecdote.id} anecdote={anecdote} voteHanldler={vote} /> )}
       </ul>
     </div>

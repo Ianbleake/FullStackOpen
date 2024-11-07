@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const CreateNew = ({ anecdotes,setAnecdotes }) => {
+
+  const navigate = useNavigate()
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
@@ -19,25 +22,30 @@ const CreateNew = ({ anecdotes,setAnecdotes }) => {
       info,
       votes: 0
     })
+    navigate('/')
   }
 
   return (
-    <div>
-      <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+    <div className="create" >
+      <h2 className="subtitle" >create a new anecdote</h2>
+      <form className="form" onSubmit={handleSubmit}>
+
+        <div className="brutalist-container">
+          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <label className="brutalist-label">CONTENT</label>
         </div>
-        <div>
-          author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+
+        <div className="brutalist-container">
+          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <label className="brutalist-label">AUTHOR</label>
         </div>
-        <div>
-          url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+
+        <div className="brutalist-container">
+          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <label className="brutalist-label">INFO</label>
         </div>
-        <button>create</button>
+
+        <button className="btn" >create</button>
       </form>
     </div>
   )
