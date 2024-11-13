@@ -47,6 +47,7 @@ const CreateNew = ({ anecdotes,setAnecdotes }) => {
         </div>
 
         <button className="btn" >create</button>
+        <button className="btn" onClick={()=>{ content.reset(); author.reset(); info.reset() }} >Reset</button>
       </form>
     </div>
   )
