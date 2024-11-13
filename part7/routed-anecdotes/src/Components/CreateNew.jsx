@@ -1,27 +1,28 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useField } from "../hooks/myHooks"
 
 const CreateNew = ({ anecdotes,setAnecdotes }) => {
 
   const navigate = useNavigate()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  const content = useField('text') 
+  const author = useField('text')
+  const info = useField('text')
 
   const addNew = (anecdote) => { 
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
     addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
+
+
     navigate('/')
   }
 
@@ -31,17 +32,17 @@ const CreateNew = ({ anecdotes,setAnecdotes }) => {
       <form className="form" onSubmit={handleSubmit}>
 
         <div className="brutalist-container">
-          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input required placeholder="TYPE HERE" className="brutalist-input smooth-type" {...content} />
           <label className="brutalist-label">CONTENT</label>
         </div>
 
         <div className="brutalist-container">
-          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input required placeholder="TYPE HERE" className="brutalist-input smooth-type" {...author} />
           <label className="brutalist-label">AUTHOR</label>
         </div>
 
         <div className="brutalist-container">
-          <input placeholder="TYPE HERE" className="brutalist-input smooth-type" type="text" name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <input required placeholder="TYPE HERE" className="brutalist-input smooth-type" {...info} />
           <label className="brutalist-label">INFO</label>
         </div>
 
