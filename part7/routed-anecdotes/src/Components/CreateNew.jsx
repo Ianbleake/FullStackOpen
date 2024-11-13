@@ -1,36 +1,34 @@
 import { useNavigate } from "react-router-dom"
 import { useField } from "../hooks/myHooks"
 
-const CreateNew = ({ anecdotes,setAnecdotes }) => {
+const CreateNew = ({ anecdotes, setAnecdotes }) => {
 
-  const navigate = useNavigate()
-  const content = useField('text') 
-  const author = useField('text')
-  const info = useField('text')
+  const navigate = useNavigate();
+  const { reset: resetContent, ...content } = useField('text');
+  const { reset: resetAuthor, ...author } = useField('text');
+  const { reset: resetInfo, ...info } = useField('text');
 
   const addNew = (anecdote) => { 
-    anecdote.id = Math.round(Math.random() * 10000)
-    setAnecdotes(anecdotes.concat(anecdote))
-  }
+    anecdote.id = Math.round(Math.random() * 10000);
+    setAnecdotes(anecdotes.concat(anecdote));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     addNew({
       content: content.value,
       author: author.value,
       info: info.value,
       votes: 0
-    })
+    });
 
-
-    navigate('/')
-  }
+    navigate('/');
+  };
 
   return (
-    <div className="create" >
-      <h2 className="subtitle" >create a new anecdote</h2>
+    <div className="create">
+      <h2 className="subtitle">create a new anecdote</h2>
       <form className="form" onSubmit={handleSubmit}>
-
         <div className="brutalist-container">
           <input required placeholder="TYPE HERE" className="brutalist-input smooth-type" {...content} />
           <label className="brutalist-label">CONTENT</label>
@@ -46,12 +44,21 @@ const CreateNew = ({ anecdotes,setAnecdotes }) => {
           <label className="brutalist-label">INFO</label>
         </div>
 
-        <button className="btn" >create</button>
-        <button className="btn" onClick={()=>{ content.reset(); author.reset(); info.reset() }} >Reset</button>
+        <button className="btn">create</button>
+        <button 
+          type="button" 
+          className="btn" 
+          onClick={() => { 
+            resetContent(); 
+            resetAuthor(); 
+            resetInfo(); 
+          }}
+        >
+          Reset
+        </button>
       </form>
     </div>
-  )
+  );
+};
 
-}
-
-export default CreateNew
+export default CreateNew;
