@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { getWeatherByCoordinates } from "../Services/Weather";
-
+import Weather from "./Weather";
 
 const CountrieInfo = ({ info }) => {
   const [countrie, setCountrie] = useState(null);
@@ -9,6 +9,7 @@ const CountrieInfo = ({ info }) => {
   let latitude = 0;
   let longitude = 0;
 
+  console.log('info:',info)
   useEffect(() => {
     setCountrie(info);
     latitude = info.capitalInfo.latlng[0];
@@ -48,15 +49,9 @@ const CountrieInfo = ({ info }) => {
         </div>
         <div className="flag col" >
           <img className="flag" src={countrie.flags.svg} alt={countrie.flags.alt} />
-          <div className="weather">
-            <h2 className="subtitle">Weather in {countrie.capital}</h2>
-            <div className="infobold">Temperature: <span className="infoo" >{weather.main.temp}, {weather.weather[0].description}</span></div>
-            <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="" className="wicon" />
-            <div className="infobold">Wind: <span className="infoo" >{weather.wind.speed}m/s</span></div>
-          </div>
         </div>
       </div>
-
+      <Weather countrie={countrie} weather={weather} />
     </div>
   );
 };

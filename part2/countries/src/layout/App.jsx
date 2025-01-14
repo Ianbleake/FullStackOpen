@@ -5,6 +5,7 @@ import CountrieInfo from '../components/CountrieInfo';
 import Notification from '../components/Notification';
 
 function App() {
+  
   const [countries, setCountries] = useState(null);
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
@@ -63,8 +64,7 @@ function App() {
           <>
             {filteredCountries.length > 1 && filteredCountries.length <= 10 && !showInfo  ? (
               filteredCountries.map((countrie, index) => (
-                <div className='option' key={index}>{countrie.name.common} <button className='show' onClick={()=>handleInfo(countrie)} >Show</button></div>
-                
+                <div className='option' key={index}>{countrie.name.common}<button className='show' onClick={()=>handleInfo(countrie)}>Show</button></div>
               ))
             ) : filteredCountries.length === 1 || showInfo ? (
               <CountrieInfo info={ selected || filteredCountries[0]} />
