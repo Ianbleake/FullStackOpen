@@ -5,34 +5,33 @@ import CountrieInfo from '../components/CountrieInfo';
 import Notification from '../components/Notification';
 
 function App() {
-  
   const [countries, setCountries] = useState(null);
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
   const [show, setShow] = useState(false);
-  const [showInfo,setShowInfo] = useState(false);
-  const [selected,setSelected] = useState(null);
+  const [showInfo, setShowInfo] = useState(false);
+  const [selectedCountryName, setSelectedCountryName] = useState(null);
 
-  const handleInfo = (countrie)=>{
+  const handleInfo = (countryName) => {
     setShowInfo(!showInfo);
-    setSelected(countrie);
-  }
+    setSelectedCountryName(countryName);
+  };
 
   useEffect(() => {
-    CountrieService.getAll().then(response => setCountries(response));
+    CountrieService.getAll().then((response) => setCountries(response));
   }, []);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
-    if(showInfo && selected !== null){
-      setSelected(null);
+    if (showInfo) {
+      setSelectedCountryName(null);
       setShowInfo(false);
     }
   };
 
-  const filteredCountries = (countries || []).filter((countrie) => {
-    return countrie.name.common.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredCountries = (countries || []).filter((country) =>
+    country.name.common.toLowerCase().includes(search.toLowerCase())
+  );
 
   useEffect(() => {
     if (!countries) {
@@ -45,7 +44,7 @@ function App() {
       setMessage('No results found');
     } else {
       setMessage('');
-      setShow(false)
+      setShow(false);
     }
 
     if (message) {
@@ -54,20 +53,37 @@ function App() {
   }, [countries, filteredCountries, message]);
 
   return (
-    <div className='App'>
-      <div className='search'>
-        <input className='input' placeholder='search...' type='text' name='search' onChange={handleSearch} value={search} />
-        {show && <Notification text={message} /> }
+    <div className="App">
+      <div className="search">
+        <input
+          className="input"
+          placeholder="search..."
+          type="text"
+          name="search"
+          onChange={handleSearch}
+          value={search}
+        />
+        {show && <Notification text={message} />}
       </div>
-      <div className='results'>
+      <div className="results">
         {countries ? (
           <>
-            {filteredCountries.length > 1 && filteredCountries.length <= 10 && !showInfo  ? (
-              filteredCountries.map((countrie, index) => (
-                <div className='option' key={index}>{countrie.name.common}<button className='show' onClick={()=>handleInfo(countrie)}>Show</button></div>
+            {filteredCountries.length > 1 &&
+            filteredCountries.length <= 10 &&
+            !showInfo ? (
+              filteredCountries.map((country, index) => (
+                <div className="option" key={index}>
+                  {country.name.common}
+                  <button
+                    className="show"
+                    onClick={() => handleInfo(country.name.common)}
+                  >
+                    Show
+                  </button>
+                </div>
               ))
             ) : filteredCountries.length === 1 || showInfo ? (
-              <CountrieInfo info={ selected || filteredCountries[0]} />
+              <CountrieInfo countryName={selectedCountryName || filteredCountries[0].name.common} />
             ) : null}
           </>
         ) : null}

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Weather = ({countrie,weather}) => {
+const Weather = ({country,weather}) => {
   console.log(weather)
   return (
     <div className="cardm">
@@ -7,7 +7,7 @@ const Weather = ({countrie,weather}) => {
       <div className="card">
         <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="" className="weather" />
         <div className="main">{Math.round(weather.main.temp)} °C</div>
-        <div className="mainsub">{countrie.capital}</div>
+        <div className="mainsub">{country.capital}</div>
       </div>
 
       <div className="card2">
